@@ -8,10 +8,10 @@ public class Controller {
     public Button button;
 
     public void showMessage(){
-        System.out.println("It works!");
 
         dialogPane.setHeaderText("Button Works!");
 
+        button.setDisable(true);
 
     }
 
