@@ -1,7 +1,5 @@
 package filters;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
@@ -25,7 +23,6 @@ public class Kernel {
      *
      * @param kernelType the type of kernel to initialize
      *                   ("blur" or "sharpen" or "edge")
-     *
      * @throws IllegalArgumentException if {@code kernelType} is not one
      *                                  of "blur" or "sharpen" or "edge"
      */
@@ -39,8 +36,7 @@ public class Kernel {
             kernelArray = sharpenKernel();
         } else if (kernelType.equals("edge")) {
             kernelArray = edgeKernel();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException();
         }
 
@@ -83,11 +79,10 @@ public class Kernel {
 
     /**
      * @return the {@code sigma} value of the blue {@code Kernel}
-     *
      * @throws IllegalAccessError if {@code kernelType} is not "blur"
      */
     public double getBlurSigma() {
-        if (!this.getKernelType().equals("blur")){
+        if (!this.getKernelType().equals("blur")) {
             throw new IllegalAccessError();
         }
         return sigma;
@@ -99,19 +94,17 @@ public class Kernel {
     @Override
     public String toString() {
 
-        if (kernelType == "blur"){
+        if (kernelType == "blur") {
             return "Kernel Type: " + kernelType + "\n" +
                     "Sigma: " + sigma + "\n" +
                     "Kernel Data: " + Arrays.toString(kernelArray);
-        }
-        else {
+        } else {
             return "Kernel Type: " + kernelType + "\n" +
                     "Kernel Data: " + Arrays.toString(kernelArray);
         }
     }
 
     /**
-     *
      * @param sigma the sigma value for the Gaussian function
      * @return a 1-D array for a blur kernel
      * by using the Gaussian function in 1-D
