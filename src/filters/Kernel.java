@@ -1,5 +1,7 @@
 package filters;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
@@ -29,19 +31,20 @@ public class Kernel {
      */
     public Kernel(String kernelType) {
 
-        if (kernelType.toLowerCase() == "blur") {
-            kernelArray = blurKernel(1d);
-        } else if (kernelType.toLowerCase() == "sharpen") {
+        sigma = 1.0;
+
+        if (kernelType.equals("blur")) {
+            kernelArray = blurKernel(sigma);
+        } else if (kernelType.equals("sharpen")) {
             kernelArray = sharpenKernel();
-        } else if (kernelType.toLowerCase() == "edge") {
+        } else if (kernelType.equals("edge")) {
             kernelArray = edgeKernel();
         }
-        else{
+        else {
             throw new IllegalArgumentException();
         }
 
         this.kernelType = kernelType;
-        sigma = 1d;
     }
 
     /**
@@ -54,7 +57,7 @@ public class Kernel {
      *                                  or greater than 5.0
      */
     public Kernel(double sigma) {
-        if (sigma < 0d || sigma > 5d) {
+        if (sigma < 0.0 || sigma > 5.0) {
             throw new IllegalArgumentException();
         }
 
@@ -83,11 +86,11 @@ public class Kernel {
      *
      * @throws IllegalAccessError if {@code kernelType} is not "blur"
      */
-    public double[] getBlurSigma() {
-        if (this.getKernelType() != "blur"){
+    public double getBlurSigma() {
+        if (!this.getKernelType().equals("blur")){
             throw new IllegalAccessError();
         }
-        return kernelArray;
+        return sigma;
     }
 
     /**
@@ -99,11 +102,11 @@ public class Kernel {
         if (kernelType == "blur"){
             return "Kernel Type: " + kernelType + "\n" +
                     "Sigma: " + sigma + "\n" +
-                    "Kernel Data: " + kernelArray.toString();
+                    "Kernel Data: " + Arrays.toString(kernelArray);
         }
         else {
             return "Kernel Type: " + kernelType + "\n" +
-                    "Kernel Data: " + kernelArray.toString();
+                    "Kernel Data: " + Arrays.toString(kernelArray);
         }
     }
 
@@ -115,19 +118,19 @@ public class Kernel {
      */
     private double[] blurKernel(double sigma) {
         final int KERNEL_LENGTH = 9;
-        final double GAUSS_SQRT = Math.sqrt((2d * Math.PI * Math.pow(sigma, 2d)));
+        final double GAUSS_SQRT = Math.sqrt((2 * Math.PI * Math.pow(sigma, 2d)));
         double kernelValue, sum;
         double[] blurKernel = new double[KERNEL_LENGTH];
 
-        for (int i = 0; i < KERNEL_LENGTH / 2d; i++) {
-            kernelValue = Math.exp(-1d * (Math.pow(KERNEL_LENGTH / 2d - i, 2d)) / (2d * Math.pow(sigma, 2d))) /
+        for (int i = 0; i < KERNEL_LENGTH / 2; i++) {
+            kernelValue = Math.exp(-1 * (Math.pow(KERNEL_LENGTH / 2 - i, 2)) / (2 * Math.pow(sigma, 2d))) /
                     GAUSS_SQRT;
 
             blurKernel[i] = kernelValue;
             blurKernel[KERNEL_LENGTH - 1 - i] = kernelValue;
         }
 
-        kernelValue = Math.exp(-1 * (Math.pow(0, 2d)) / (2d * Math.pow(sigma, 2d))) /
+        kernelValue = Math.exp(-1 * (Math.pow(0, 2)) / (2 * Math.pow(sigma, 2))) /
                 GAUSS_SQRT;
         blurKernel[KERNEL_LENGTH / 2] = kernelValue;
         sum = DoubleStream.of(blurKernel).sum();
