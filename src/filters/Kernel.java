@@ -111,28 +111,38 @@ public class Kernel {
      */
     private double[] blurKernel(double sigma) {
         final int KERNEL_LENGTH = 9;
-        final double GAUSS_SQRT = Math.sqrt((2 * Math.PI * Math.pow(sigma, 2d)));
+        final double GAUSS_SQRT = Math.sqrt((2.0 * Math.PI * Math.pow(sigma, 2)));
         double kernelValue, sum;
-        double[] blurKernel = new double[KERNEL_LENGTH];
+        double[] gaussianK = new double[KERNEL_LENGTH];
+
 
         for (int i = 0; i < KERNEL_LENGTH / 2; i++) {
-            kernelValue = Math.exp(-1 * (Math.pow(KERNEL_LENGTH / 2 - i, 2)) / (2 * Math.pow(sigma, 2d))) /
+            kernelValue = Math.exp(-1 * (Math.pow(KERNEL_LENGTH / 2 - i, 2)) / (2 * Math.pow(sigma, 2))) /
                     GAUSS_SQRT;
 
-            blurKernel[i] = kernelValue;
-            blurKernel[KERNEL_LENGTH - 1 - i] = kernelValue;
+            gaussianK[i] = kernelValue;
+            gaussianK[KERNEL_LENGTH - 1 - i] = kernelValue;
         }
 
         kernelValue = Math.exp(-1 * (Math.pow(0, 2)) / (2 * Math.pow(sigma, 2))) /
                 GAUSS_SQRT;
-        blurKernel[KERNEL_LENGTH / 2] = kernelValue;
-        sum = DoubleStream.of(blurKernel).sum();
+        gaussianK[KERNEL_LENGTH / 2] = kernelValue;
+        sum = sumArray(gaussianK);
 
         for (int j = 0; j < KERNEL_LENGTH; j++) {
-            blurKernel[j] /= sum;
+            gaussianK[j] /= sum;
         }
 
-        return blurKernel;
+        return gaussianK;
+    }
+
+    private double sumArray(double[] array) {
+        double sum = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            sum += array[i];
+        }
+        return sum;
     }
 
     /**
