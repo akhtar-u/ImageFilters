@@ -1,5 +1,6 @@
 package filters;
 
+import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
 /**
@@ -87,6 +88,23 @@ public class Kernel {
             throw new IllegalAccessError();
         }
         return kernelArray;
+    }
+
+    /**
+     * @return a String object representing the {@code Kernel}
+     */
+    @Override
+    public String toString() {
+
+        if (kernelType == "blur"){
+            return "Kernel Type: " + kernelType + "\n" +
+                    "Sigma: " + sigma + "\n" +
+                    "Kernel Data: " + kernelArray.toString();
+        }
+        else {
+            return "Kernel Type: " + kernelType + "\n" +
+                    "Kernel Data: " + kernelArray.toString();
+        }
     }
 
     /**
