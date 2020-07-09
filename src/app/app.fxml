@@ -15,4 +15,37 @@
    <bottom>
       <DialogPane fx:id="dialogPane" BorderPane.alignment="CENTER" />
    </bottom>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Open" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+              <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Undo" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Filters">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Blur" />
+                  <MenuItem mnemonicParsing="false" text="Sharpen" />
+                  <MenuItem mnemonicParsing="false" text="Edge Detection" />
+                  <MenuItem mnemonicParsing="false" text="Dithering" />
+                  <MenuItem mnemonicParsing="false" text="Matrix" />
+                  <MenuItem mnemonicParsing="false" text="Pixelify" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
 </BorderPane>
