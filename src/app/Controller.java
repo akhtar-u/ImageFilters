@@ -65,8 +65,6 @@ public class Controller {
         Image image = new Image(inputStream);
 
         this.image.setImage(image);
-        this.image.setFitHeight(1000);
-        this.image.setFitWidth(800);
         this.image.setPreserveRatio(true);
     }
 }
