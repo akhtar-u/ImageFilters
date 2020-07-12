@@ -14,9 +14,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
         primaryStage.setTitle("Image Editor");
         primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-
         primaryStage.getIcons().add(new Image("file:icon.png"));
+        primaryStage.show();
     }
 
 
