@@ -1,6 +1,7 @@
 package app;
 
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,8 +12,10 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,7 +54,7 @@ public class Controller {
         Platform.exit();
     }
 
-    public void openImage() throws IOException {
+    public void openImage() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Image");
         fileChooser.getExtensionFilters().addAll(
@@ -66,5 +69,25 @@ public class Controller {
 
         this.image.setImage(image);
         this.image.setPreserveRatio(true);
+    }
+
+    public void saveImage(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Location to Save");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG file", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG file", "*.jpeg"),
+                new FileChooser.ExtensionFilter("GIF file", "*.gif")
+        );
+
+        Stage stage = (Stage) bp.getScene().getWindow();
+        File selectedPath = new File(fileChooser.showSaveDialog(stage).getAbsolutePath());
+
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image.getImage(), null);
+        try {
+            ImageIO.write(bImage, "png", selectedPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
