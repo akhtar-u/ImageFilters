@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
-        primaryStage.setTitle("Image Editor");
+        primaryStage.setTitle("Image Filters");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.getIcons().add(new Image("file:icon.png"));
         primaryStage.show();
