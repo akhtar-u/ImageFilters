@@ -56,7 +56,7 @@ public class Controller {
         Platform.exit();
     }
 
-    public void openImage() throws FileNotFoundException {
+    public void openImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Image");
         fileChooser.getExtensionFilters().addAll(
@@ -66,7 +66,12 @@ public class Controller {
         Stage stage = (Stage) bp.getScene().getWindow();
         File selectedImage = fileChooser.showOpenDialog(stage);
 
-        FileInputStream inputStream = new FileInputStream(selectedImage);
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Image image = new Image(inputStream);
 
         this.image.setImage(image);
@@ -99,4 +104,27 @@ public class Controller {
             image.setImage(oldImage.getImage());
         }
     }
+
+    public void sharpen (){
+
+        int[] imgData = imageData();
+
+        System.out.println((imgData[0] & 0x00FF0000) >> 16);
+
+
+    }
+
+    private int[] imageData(){
+        Image srcImg = image.getImage();
+        BufferedImage bImg = SwingFXUtils.fromFXImage(srcImg, null);
+        int[] rgbData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
+
+        return rgbData;
+    }
+
+
+
+
+
+
 }

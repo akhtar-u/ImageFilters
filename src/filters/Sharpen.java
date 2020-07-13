@@ -19,6 +19,4 @@ public class Sharpen {
 
         return null;
     }
-
-
 }

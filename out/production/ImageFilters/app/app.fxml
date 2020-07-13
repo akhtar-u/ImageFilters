@@ -26,10 +26,9 @@
             <Menu mnemonicParsing="false" text="Filters">
               <items>
                 <MenuItem mnemonicParsing="false" text="Gaussian Blur" />
-                  <MenuItem mnemonicParsing="false" text="Sharpen" />
+                  <MenuItem mnemonicParsing="false" onAction="#sharpen" text="Sharpen" />
                   <MenuItem mnemonicParsing="false" text="Edge Detection" />
                   <MenuItem mnemonicParsing="false" text="Dithering" />
-                  <MenuItem mnemonicParsing="false" text="Bilateral (smoothing)" />
                   <MenuItem mnemonicParsing="false" text="Median (denoise)" />
               </items>
             </Menu>
