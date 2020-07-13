@@ -1,5 +1,6 @@
 package app;
 
+import filters.Sharpen;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -79,7 +80,7 @@ public class Controller {
         this.image.setPreserveRatio(true);
     }
 
-    public void saveImage(){
+    public void saveImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Location to Save");
         fileChooser.getExtensionFilters().addAll(
@@ -100,31 +101,30 @@ public class Controller {
     }
 
     public void undo() {
-        if (!oldImage.equals(image)){
+        if (!oldImage.equals(image)) {
             image.setImage(oldImage.getImage());
         }
     }
 
-    public void sharpen (){
-
+    public void sharpen() {
         int[] imgData = imageData();
+        Sharpen filteredImg = new Sharpen();
+        filteredImg.sharpenImage(imgData, (int) image.getImage().getWidth());
 
-        System.out.println((imgData[0] & 0x00FF0000) >> 16);
+        Image srcImg = image.getImage();
+        BufferedImage bImg = SwingFXUtils.fromFXImage(srcImg, null);
+        bImg.setRGB(0, 0, bImg.getWidth(), bImg.getHeight(), imgData, 0, bImg.getWidth());
 
+        Image dstImg = SwingFXUtils.toFXImage(bImg, null);
+        image.setImage(dstImg);
 
     }
 
-    private int[] imageData(){
+    private int[] imageData() {
         Image srcImg = image.getImage();
         BufferedImage bImg = SwingFXUtils.fromFXImage(srcImg, null);
         int[] rgbData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
 
         return rgbData;
     }
-
-
-
-
-
-
 }
