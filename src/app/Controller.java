@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     ImageView image;
 
+    ImageView oldImage;
+
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
@@ -68,6 +70,7 @@ public class Controller {
         Image image = new Image(inputStream);
 
         this.image.setImage(image);
+        oldImage.setImage(image);
         this.image.setPreserveRatio(true);
     }
 
@@ -88,6 +91,12 @@ public class Controller {
             ImageIO.write(bImage, "png", selectedPath);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void undo() {
+        if (!oldImage.equals(image)){
+            image.setImage(oldImage.getImage());
         }
     }
 }
