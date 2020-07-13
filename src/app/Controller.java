@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class Controller {
@@ -111,6 +110,7 @@ public class Controller {
 
     public void undo() {
         image.setImage(oldImage);
+        getImageData();
     }
 
     public void sharpen() {
