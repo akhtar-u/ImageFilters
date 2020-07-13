@@ -33,6 +33,9 @@ public class Controller {
     int[] currentImageData, oldImageData;
     int imgWidth, imgHeight;
     BufferedImage bImg;
+    Image oldImage;
+
+    Sharpen sharpen = new Sharpen();
 
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -107,12 +110,11 @@ public class Controller {
     }
 
     public void undo() {
-        setImageData(oldImageData);
+        image.setImage(oldImage);
     }
 
     public void sharpen() {
-        Sharpen sharpen = new Sharpen();
-        oldImageData = Arrays.copyOf(currentImageData, currentImageData.length);
+        oldImage = image.getImage();
 
         sharpen.sharpenImage(currentImageData, imgWidth);
         setImageData(currentImageData);
