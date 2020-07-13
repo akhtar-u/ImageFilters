@@ -1,7 +1,6 @@
 package filters;
 
 import java.util.Arrays;
-import java.util.stream.DoubleStream;
 
 /**
  * A 3x3 kernel in 1-dimension for Sharpen and Gaussian
@@ -18,7 +17,7 @@ public class Kernel {
 
 
     /**
-     * Initializes a kernel with a {@code kernelType} as
+     * Initializes a {@code Kernel} with a {@code kernelType} as
      * specified by the caller.
      *
      * @param kernelType the type of kernel to initialize
