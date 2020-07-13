@@ -14,14 +14,17 @@ public class Sharpen {
         kernel = new Kernel("sharpen");
     }
 
-    public void sharpenImage (int[] imageData, int imgWidth){
+    public void sharpenImage(int[] imageData, int imgWidth) {
 
         double red, green, blue;
+        int alpha;
         double[] sharpKernel = kernel.getKernelArray();
 
         int[] sharpenImage = new int[imageData.length];
 
         for (int i = 0; i < imageData.length; i++) {
+
+            alpha = (imageData[i] >> 24) & 0xff;
 
             red = (getPixel(imageData, i - imgWidth - 1, 0)) * sharpKernel[0];
             red += (getPixel(imageData, i - imgWidth, 0)) * sharpKernel[1];
@@ -29,7 +32,7 @@ public class Sharpen {
             red += (getPixel(imageData, i - 1, 0)) * sharpKernel[3];
             red += getPixel(imageData, i, 0) * sharpKernel[4];
             red += (getPixel(imageData, i + 1, 0)) * sharpKernel[5];
-            red += (getPixel(imageData, i + imgWidth - 1 , 0)) * sharpKernel[6];
+            red += (getPixel(imageData, i + imgWidth - 1, 0)) * sharpKernel[6];
             red += (getPixel(imageData, i + imgWidth, 0)) * sharpKernel[7];
             red += (getPixel(imageData, i + imgWidth + 1, 0)) * sharpKernel[8];
 
@@ -60,7 +63,7 @@ public class Sharpen {
             if (green > 255) green = 255;
             if (blue > 255) blue = 255;
 
-            sharpenImage[i] = (int) red << 16 | (int) green << 8 | (int) blue;
+            sharpenImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
         }
 
         System.arraycopy(sharpenImage, 0, imageData, 0, imageData.length);

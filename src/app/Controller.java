@@ -29,7 +29,9 @@ public class Controller {
     @FXML
     ImageView image;
 
-    ImageView oldImage;
+    int[] currentImageData, oldImageData;
+    int imgWidth, imgHeight;
+    BufferedImage bImg;
 
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -76,8 +78,11 @@ public class Controller {
         Image image = new Image(inputStream);
 
         this.image.setImage(image);
-        oldImage.setImage(image);
         this.image.setPreserveRatio(true);
+
+        getImageData();
+        imgHeight = (int) image.getHeight();
+        imgWidth = (int) image.getWidth();
     }
 
     public void saveImage() {
@@ -101,30 +106,24 @@ public class Controller {
     }
 
     public void undo() {
-        if (!oldImage.equals(image)) {
-            image.setImage(oldImage.getImage());
-        }
+
     }
 
     public void sharpen() {
-        int[] imgData = imageData();
-        Sharpen filteredImg = new Sharpen();
-        filteredImg.sharpenImage(imgData, (int) image.getImage().getWidth());
-
-        Image srcImg = image.getImage();
-        BufferedImage bImg = SwingFXUtils.fromFXImage(srcImg, null);
-        bImg.setRGB(0, 0, bImg.getWidth(), bImg.getHeight(), imgData, 0, bImg.getWidth());
-
-        Image dstImg = SwingFXUtils.toFXImage(bImg, null);
-        image.setImage(dstImg);
-
+        Sharpen sharpen = new Sharpen();
+        sharpen.sharpenImage(currentImageData, imgWidth);
+        setImageData(currentImageData);
     }
 
-    private int[] imageData() {
+    private void getImageData() {
         Image srcImg = image.getImage();
-        BufferedImage bImg = SwingFXUtils.fromFXImage(srcImg, null);
-        int[] rgbData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
+        bImg = SwingFXUtils.fromFXImage(srcImg, null);
+        currentImageData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
+    }
 
-        return rgbData;
+    private void setImageData(int[] imageData) {
+        bImg.setRGB(0, 0, bImg.getWidth(), bImg.getHeight(), imageData, 0, bImg.getWidth());
+        Image filteredImage = SwingFXUtils.toFXImage(bImg, null);
+        image.setImage(filteredImage);
     }
 }
