@@ -34,11 +34,9 @@ public class Controller {
     int imgWidth, imgHeight;
     BufferedImage bImg;
     Image oldImage;
-    double sigma;
     String currentFilePath;
 
     Sharpen sharpen = new Sharpen();
-    Blur blur = new Blur(5.0);
 
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -128,10 +126,19 @@ public class Controller {
 
     public void blur() {
         oldImage = image.getImage();
-        System.out.println(blur.kernel.toString());
 
-        blur.blurImage(currentImageData, imgWidth);
-        setImageData(currentImageData);
+        TextInputDialog dialog = new TextInputDialog("1.0");
+        dialog.setTitle("Gaussian Blur Filter");
+        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. (Lower Sigma values = softer blur)");
+        dialog.setContentText("Sigma Value: ");
+
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            Blur blur = new Blur(Double.parseDouble(result.get()));
+            blur.blurImage(currentImageData, imgWidth);
+            setImageData(currentImageData);
+        }
     }
 
     private void getImageData() {

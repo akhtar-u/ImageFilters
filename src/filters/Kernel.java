@@ -48,11 +48,11 @@ public class Kernel {
      *
      * @param sigma the sigma value for the Gaussian function
      *              larger values lead to a stronger blur
-     * @throws IllegalArgumentException if {@code sigma} is less than 0.0
+     * @throws IllegalArgumentException if {@code sigma} is less than 1.0
      *                                  or greater than 5.0
      */
     public Kernel(double sigma) {
-        if (sigma < 0.0 || sigma > 5.0) {
+        if (sigma < 1.0 || sigma > 5.0) {
             throw new IllegalArgumentException();
         }
 
