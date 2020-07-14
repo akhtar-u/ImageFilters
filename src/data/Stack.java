@@ -14,7 +14,7 @@ import java.util.List;
 public class Stack {
 
     public int stackSize;
-    private int stackCount;
+    public int stackCount;
     private List<Image> stateList;
 
     public Stack (int stackSize) {
@@ -24,10 +24,13 @@ public class Stack {
     }
 
     public void push(Image image){
+        if(stackCount == stackSize - 1){
+            stateList.remove(0);
+            stackCount--;
+        }
         stateList.add(image);
         stackCount++;
     }
-
 
     public Image pop(){
         stackCount--;

@@ -126,7 +126,7 @@ public class Controller {
         //image.setImage(oldImage);
         //getImageData();
 
-
+        image.setImage(stack.pop());
 
 
     }
