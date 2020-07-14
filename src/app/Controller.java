@@ -1,5 +1,6 @@
 package app;
 
+import filters.Blur;
 import filters.Sharpen;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -33,8 +34,11 @@ public class Controller {
     int imgWidth, imgHeight;
     BufferedImage bImg;
     Image oldImage;
+    double sigma;
+    String currentFilePath;
 
     Sharpen sharpen = new Sharpen();
+    Blur blur = new Blur(5.0);
 
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -71,6 +75,8 @@ public class Controller {
 
         Stage stage = (Stage) bp.getScene().getWindow();
         File selectedImage = fileChooser.showOpenDialog(stage);
+        System.out.println(selectedImage.getAbsolutePath());
+        currentFilePath = selectedImage.getAbsolutePath();
 
         FileInputStream inputStream = null;
         try {
@@ -117,6 +123,13 @@ public class Controller {
         oldImage = image.getImage();
 
         sharpen.sharpenImage(currentImageData, imgWidth);
+        setImageData(currentImageData);
+    }
+
+    public void blur() {
+        oldImage = image.getImage();
+
+        blur.blurImage(currentImageData, imgWidth);
         setImageData(currentImageData);
     }
 

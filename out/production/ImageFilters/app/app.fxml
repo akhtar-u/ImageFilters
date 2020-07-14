@@ -25,7 +25,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Filters">
               <items>
-                <MenuItem mnemonicParsing="false" text="Gaussian Blur" />
+                <MenuItem mnemonicParsing="false" onAction="#blur" text="Gaussian Blur" />
                   <MenuItem mnemonicParsing="false" onAction="#sharpen" text="Sharpen" />
                   <MenuItem mnemonicParsing="false" text="Edge Detection" />
                   <MenuItem mnemonicParsing="false" text="Dithering" />

@@ -5,6 +5,9 @@ package filters;
  */
 public class Sharpen {
 
+    /**
+     * The {@code Kernel} object to be used during convulation
+     */
     public Kernel kernel;
 
     /**
