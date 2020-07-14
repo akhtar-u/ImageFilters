@@ -33,7 +33,9 @@ public class Stack {
     }
 
     public Image popUndo(){
-        stackCount--;
+        if (!(stackCount <= 0)){
+            stackCount--;
+        }
         return stateList.get(stackCount);
     }
 
