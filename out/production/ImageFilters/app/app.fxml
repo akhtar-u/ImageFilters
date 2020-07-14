@@ -21,6 +21,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
+                  <MenuItem mnemonicParsing="false" text="Redo" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Filters">

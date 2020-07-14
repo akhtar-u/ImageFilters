@@ -1,5 +1,6 @@
 package app;
 
+import data.Stack;
 import filters.Blur;
 import filters.Sharpen;
 import javafx.application.Platform;
@@ -9,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -40,6 +40,7 @@ public class Controller {
     String currentFilePath = userDir + "/Desktop";
 
     Sharpen sharpen = new Sharpen();
+    Stack stack = new Stack(10);
 
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -122,8 +123,12 @@ public class Controller {
     }
 
     public void undo() {
-        image.setImage(oldImage);
-        getImageData();
+        //image.setImage(oldImage);
+        //getImageData();
+
+
+
+
     }
 
     public void sharpen() {
@@ -131,6 +136,7 @@ public class Controller {
 
         sharpen.sharpenImage(currentImageData, imgWidth);
         setImageData(currentImageData);
+
     }
 
     public void blur() {
@@ -147,12 +153,15 @@ public class Controller {
             blur.blurImage(currentImageData, imgWidth);
             setImageData(currentImageData);
         }
+
+
     }
 
     private void getImageData() {
         Image srcImg = image.getImage();
         bImg = SwingFXUtils.fromFXImage(srcImg, null);
         currentImageData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
+        stack.push(srcImg);
     }
 
     private void setImageData(int[] imageData) {
@@ -160,4 +169,6 @@ public class Controller {
         Image filteredImage = SwingFXUtils.toFXImage(bImg, null);
         image.setImage(filteredImage);
     }
+
+
 }
