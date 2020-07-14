@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -30,11 +31,13 @@ public class Controller {
     @FXML
     ImageView image;
 
-    int[] currentImageData, oldImageData;
+    int[] currentImageData;
     int imgWidth, imgHeight;
     BufferedImage bImg;
     Image oldImage;
-    String currentFilePath;
+
+    String userDir = System.getProperty("user.home");
+    String currentFilePath = userDir + "/Desktop";
 
     Sharpen sharpen = new Sharpen();
 
@@ -65,7 +68,10 @@ public class Controller {
     }
 
     public void openImage() {
+        File dirPath = new File(currentFilePath);
+
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(dirPath);
         fileChooser.setTitle("Choose Image");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
@@ -73,8 +79,9 @@ public class Controller {
 
         Stage stage = (Stage) bp.getScene().getWindow();
         File selectedImage = fileChooser.showOpenDialog(stage);
-        System.out.println(selectedImage.getAbsolutePath());
-        currentFilePath = selectedImage.getAbsolutePath();
+
+        currentFilePath = selectedImage.getParent();
+        System.out.println(currentFilePath);
 
         FileInputStream inputStream = null;
         try {
@@ -93,7 +100,10 @@ public class Controller {
     }
 
     public void saveImage() {
+        File dirPath = new File(currentFilePath);
+
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(dirPath);
         fileChooser.setTitle("Choose Location to Save");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG file", "*.png"),
@@ -132,9 +142,8 @@ public class Controller {
         dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. (Lower Sigma values = softer blur)");
         dialog.setContentText("Sigma Value: ");
 
-
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent()) {
             Blur blur = new Blur(Double.parseDouble(result.get()));
             blur.blurImage(currentImageData, imgWidth);
             setImageData(currentImageData);
