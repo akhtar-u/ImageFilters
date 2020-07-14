@@ -123,7 +123,6 @@ public class Controller {
 
     public void undo() {
         image.setImage(stack.popUndo());
-        System.out.println(stack.stackCount);
     }
 
     public void redo() {

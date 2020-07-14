@@ -17,14 +17,14 @@ public class Stack {
     public int stackCount;
     private List<Image> stateList;
 
-    public Stack (int stackSize) {
+    public Stack(int stackSize) {
         this.stackSize = stackSize;
         stackCount = -1;
         stateList = new ArrayList<Image>(10);
     }
 
-    public void push(Image image){
-        if(stackCount == stackSize - 1){
+    public void push(Image image) {
+        if (stackCount == stackSize - 1) {
             stateList.remove(0);
             stackCount--;
         }
@@ -32,19 +32,17 @@ public class Stack {
         stackCount++;
     }
 
-    public Image popUndo(){
-        if (!(stackCount <= 0)){
+    public Image popUndo() {
+        if (!(stackCount <= 0)) {
             stackCount--;
         }
         return stateList.get(stackCount);
     }
 
-    public Image popRedo(){
-        stackCount++;
+    public Image popRedo() {
+        if (stackCount < stateList.size() - 1) {
+            stackCount++;
+        }
         return stateList.get(stackCount);
     }
-
-
-
-
 }
