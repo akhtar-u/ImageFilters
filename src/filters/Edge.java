@@ -1,33 +1,35 @@
 package filters;
 
-import java.util.Arrays;
 
 /**
- * A filter which sharpens an image.
+ * A filter which detects the "edges" of an image
+ * and displays it in black and white
  *
  * @author Usman Akhtar
  */
-public class Sharpen {
+public class Edge {
 
     /**
      * The {@code Kernel} object to be used during convulation
      */
     public Kernel kernel;
+    private double weight;
 
     /**
-     * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}
+     * Initializes an {@code Edge} object with an edge detection {@code Kernel}
      */
-    public Sharpen() {
-        kernel = new Kernel("sharpen");
+    public Edge(double weight) {
+        kernel = new Kernel("edge");
+        this.weight = weight;
     }
 
-    public void sharpenImage(int[] imageData, int imgWidth) {
+    public void detectEdge(int[] imageData, int imgWidth) {
 
-        double red, green, blue;
+        double red, green, blue, avg;
         int alpha;
         double[] sharpKernel = kernel.getKernelArray();
+        int[] detectEdge = new int[imageData.length];
 
-        int[] sharpenImage = new int[imageData.length];
 
         for (int i = 0; i < imageData.length; i++) {
 
@@ -70,9 +72,15 @@ public class Sharpen {
             if (green > 255) green = 255;
             if (blue > 255) blue = 255;
 
-            sharpenImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
+            red = FilterUtility.getPixel(imageData, i, 0) - red;
+            green = FilterUtility.getPixel(imageData, i, 1) - green;
+            blue = FilterUtility.getPixel(imageData, i, 2) - blue;
+
+            avg = (.2126 * red + 0.7152* green + 0.0722* blue) / weight;
+
+            detectEdge[i] = alpha << 24 | (int) avg << 16 | (int) avg << 8 | (int) avg;
         }
 
-        System.arraycopy(sharpenImage, 0, imageData, 0, imageData.length);
+        System.arraycopy(detectEdge, 0, imageData, 0, imageData.length);
     }
 }

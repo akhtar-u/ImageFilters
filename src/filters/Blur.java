@@ -12,7 +12,7 @@ public class Blur {
      * with the given {@code sigma} value;
      */
     public Kernel kernel;
-    public double sigma;
+    private double sigma;
 
     /**
      * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}
@@ -20,7 +20,8 @@ public class Blur {
      * @param sigma the sigma value to calculate the Gaussian blur {@code Kernel}
      */
     public Blur(double sigma) {
-        kernel = new Kernel(sigma);
+        this.sigma = sigma;
+        kernel = new Kernel(this.sigma);
     }
 
     public void blurImage(int[] imageData, int imgWidth) {

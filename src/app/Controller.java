@@ -2,6 +2,7 @@ package app;
 
 import data.Stack;
 import filters.Blur;
+import filters.Edge;
 import filters.Sharpen;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -139,13 +140,29 @@ public class Controller {
     public void blur() {
         TextInputDialog dialog = new TextInputDialog("1.0");
         dialog.setTitle("Gaussian Blur Filter");
-        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. (Lower Sigma values = softer blur)");
+        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0 (Lower Sigma values = softer blur)");
         dialog.setContentText("Sigma Value: ");
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             Blur blur = new Blur(Double.parseDouble(result.get()));
             blur.blurImage(currentImageData, imgWidth);
+            setImageData(currentImageData);
+        }
+
+        stack.push(image.getImage());
+    }
+
+    public void edge() {
+        TextInputDialog dialog = new TextInputDialog("5.0");
+        dialog.setTitle("Edge Detection Filter");
+        dialog.setHeaderText("Enter a decimal value (values closer to 0.0 result in more noise and detail)");
+        dialog.setContentText("Weight Value: ");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            Edge edge = new Edge(Double.parseDouble(result.get()));
+            edge.detectEdge(currentImageData, imgWidth);
             setImageData(currentImageData);
         }
 
