@@ -5,6 +5,8 @@ import java.util.Arrays;
 /**
  * A 3x3 kernel in 1-dimension for Sharpen and Gaussian
  * Blur image filters.
+ *
+ * @author Usman Akhtar
  */
 public class Kernel {
 

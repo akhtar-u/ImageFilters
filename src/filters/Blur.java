@@ -2,6 +2,8 @@ package filters;
 
 /**
  * A filter which adds a Gaussian Blur to an image.
+ *
+ * @author Usman Akhtar
  */
 public class Blur {
 
@@ -37,19 +39,19 @@ public class Blur {
 
                 alpha = (imageData[i] >> 24) & 0xff;
 
-                red = (getPixel(imageData, j, 0)) * blurKernel[kLength];
-                green = (getPixel(imageData, j, 1)) * blurKernel[kLength];
-                blue = (getPixel(imageData, j, 2)) * blurKernel[kLength];
+                red = (FilterUtility.getPixel(imageData, j, 0)) * blurKernel[kLength];
+                green = (FilterUtility.getPixel(imageData, j, 1)) * blurKernel[kLength];
+                blue = (FilterUtility.getPixel(imageData, j, 2)) * blurKernel[kLength];
 
                 for (int k = kLength; k > 0; k--) {
-                    red += (getPixel(imageData, j - k * imgWidth, 0)) * blurKernel[kLength - k];
-                    red += (getPixel(imageData, j + k * imgWidth, 0)) * blurKernel[kLength + k];
+                    red += (FilterUtility.getPixel(imageData, j - k * imgWidth, 0)) * blurKernel[kLength - k];
+                    red += (FilterUtility.getPixel(imageData, j + k * imgWidth, 0)) * blurKernel[kLength + k];
 
-                    green += (getPixel(imageData, j - k * imgWidth, 1)) * blurKernel[kLength - k];
-                    green += (getPixel(imageData, j + k * imgWidth, 1)) * blurKernel[kLength + k];
+                    green += (FilterUtility.getPixel(imageData, j - k * imgWidth, 1)) * blurKernel[kLength - k];
+                    green += (FilterUtility.getPixel(imageData, j + k * imgWidth, 1)) * blurKernel[kLength + k];
 
-                    blue += (getPixel(imageData, j - k * imgWidth, 2)) * blurKernel[kLength - k];
-                    blue += (getPixel(imageData, j + k * imgWidth, 2)) * blurKernel[kLength + k];
+                    blue += (FilterUtility.getPixel(imageData, j - k * imgWidth, 2)) * blurKernel[kLength - k];
+                    blue += (FilterUtility.getPixel(imageData, j + k * imgWidth, 2)) * blurKernel[kLength + k];
                 }
                 convolveX[j] = alpha << 24| (int) red << 16 | (int) green << 8 | (int) blue;
             }
@@ -61,19 +63,19 @@ public class Blur {
 
                 alpha = (imageData[i] >> 24) & 0xff;
 
-                red = (getPixel(convolveX, j, 0)) * blurKernel[kLength];
-                green = (getPixel(convolveX, j, 1)) * blurKernel[kLength];
-                blue = (getPixel(convolveX, j, 2)) * blurKernel[kLength];
+                red = (FilterUtility.getPixel(convolveX, j, 0)) * blurKernel[kLength];
+                green = (FilterUtility.getPixel(convolveX, j, 1)) * blurKernel[kLength];
+                blue = (FilterUtility.getPixel(convolveX, j, 2)) * blurKernel[kLength];
 
                 for (int k = kLength; k > 0; k--) {
-                    red += (getPixel(convolveX, j - k, 0)) * blurKernel[kLength - k];
-                    red += (getPixel(convolveX, j + k, 0)) * blurKernel[kLength + k];
+                    red += (FilterUtility.getPixel(convolveX, j - k, 0)) * blurKernel[kLength - k];
+                    red += (FilterUtility.getPixel(convolveX, j + k, 0)) * blurKernel[kLength + k];
 
-                    green += (getPixel(convolveX, j - k, 1)) * blurKernel[kLength - k];
-                    green += (getPixel(convolveX, j + k, 1)) * blurKernel[kLength + k];
+                    green += (FilterUtility.getPixel(convolveX, j - k, 1)) * blurKernel[kLength - k];
+                    green += (FilterUtility.getPixel(convolveX, j + k, 1)) * blurKernel[kLength + k];
 
-                    blue += (getPixel(convolveX, j - k, 2)) * blurKernel[kLength - k];
-                    blue += (getPixel(convolveX, j + k, 2)) * blurKernel[kLength + k];
+                    blue += (FilterUtility.getPixel(convolveX, j - k, 2)) * blurKernel[kLength - k];
+                    blue += (FilterUtility.getPixel(convolveX, j + k, 2)) * blurKernel[kLength + k];
                 }
                 convolveY[j] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
@@ -81,25 +83,5 @@ public class Blur {
         //store the result back to the original array
         System.arraycopy(convolveY, 0, imageData, 0, imageData.length);
 
-    }
-
-    private double getPixel(int[] data, int index, int color) {
-        double newPixel;
-
-        if (index < 0) {
-            index = 0;
-        } else if (index >= data.length) {
-            index = data.length - 1;
-        }
-
-        if (color == 0) {
-            newPixel = (data[index] & 0x00FF0000) >> 16;
-        } else if (color == 1) {
-            newPixel = (data[index] & 0x0000FF00) >> 8;
-        } else {
-            newPixel = data[index] & 0x000000FF;
-        }
-
-        return newPixel;
     }
 }
