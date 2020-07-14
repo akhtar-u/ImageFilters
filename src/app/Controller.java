@@ -34,7 +34,6 @@ public class Controller {
     int[] currentImageData;
     int imgWidth, imgHeight;
     BufferedImage bImg;
-    Image oldImage;
 
     String userDir = System.getProperty("user.home");
     String currentFilePath = userDir + "/Desktop";
@@ -123,25 +122,22 @@ public class Controller {
     }
 
     public void undo() {
-        //image.setImage(oldImage);
-        //getImageData();
+        image.setImage(stack.popUndo());
+        System.out.println(stack.stackCount);
+    }
 
-        image.setImage(stack.pop());
-
-
+    public void redo() {
+        image.setImage(stack.popRedo());
     }
 
     public void sharpen() {
-        oldImage = image.getImage();
-
         sharpen.sharpenImage(currentImageData, imgWidth);
         setImageData(currentImageData);
 
+        stack.push(image.getImage());
     }
 
     public void blur() {
-        oldImage = image.getImage();
-
         TextInputDialog dialog = new TextInputDialog("1.0");
         dialog.setTitle("Gaussian Blur Filter");
         dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. (Lower Sigma values = softer blur)");
@@ -154,7 +150,7 @@ public class Controller {
             setImageData(currentImageData);
         }
 
-
+        stack.push(image.getImage());
     }
 
     private void getImageData() {
