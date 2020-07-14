@@ -79,9 +79,7 @@ public class Controller {
 
         Stage stage = (Stage) bp.getScene().getWindow();
         File selectedImage = fileChooser.showOpenDialog(stage);
-
         currentFilePath = selectedImage.getParent();
-        System.out.println(currentFilePath);
 
         FileInputStream inputStream = null;
         try {
@@ -108,6 +106,7 @@ public class Controller {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG file", "*.png"),
                 new FileChooser.ExtensionFilter("JPEG file", "*.jpeg"),
+                new FileChooser.ExtensionFilter("JPG file", "*.jpg"),
                 new FileChooser.ExtensionFilter("GIF file", "*.gif")
         );
 
