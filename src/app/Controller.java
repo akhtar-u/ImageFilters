@@ -128,6 +128,7 @@ public class Controller {
 
     public void blur() {
         oldImage = image.getImage();
+        System.out.println(blur.kernel.toString());
 
         blur.blurImage(currentImageData, imgWidth);
         setImageData(currentImageData);
