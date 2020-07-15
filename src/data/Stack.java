@@ -15,7 +15,7 @@ public class Stack {
 
     public int stackSize;
     public int stackCount;
-    private List<Image> stateList;
+    private final List<Image> stateList;
 
     public Stack(int stackSize) {
         this.stackSize = stackSize;
@@ -44,5 +44,15 @@ public class Stack {
             stackCount++;
         }
         return stateList.get(stackCount);
+    }
+
+    public void clear(){
+        if (stackCount < stateList.size()){
+            stateList.subList(stackCount + 1, stateList.size()).clear();
+        }
+    }
+
+    public List<Image> getStateList() {
+        return stateList;
     }
 }

@@ -92,7 +92,7 @@ public class Controller {
 
         this.image.setImage(image);
         this.image.setPreserveRatio(true);
-
+        stack.push(image);
         getImageData();
         imgHeight = (int) image.getHeight();
         imgWidth = (int) image.getWidth();
@@ -124,23 +124,29 @@ public class Controller {
 
     public void undo() {
         image.setImage(stack.popUndo());
+        getImageData();
+        System.out.println(stack.getStateList());
     }
 
     public void redo() {
         image.setImage(stack.popRedo());
+        getImageData();
+        System.out.println(stack.getStateList());
     }
 
     public void sharpen() {
         sharpen.sharpenImage(currentImageData, imgWidth);
         setImageData(currentImageData);
 
+        stack.clear();
         stack.push(image.getImage());
+        System.out.println(stack.getStateList());
     }
 
     public void blur() {
         TextInputDialog dialog = new TextInputDialog("1.0");
         dialog.setTitle("Gaussian Blur Filter");
-        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0 (Lower Sigma values = softer blur)");
+        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. Lower Sigma values = softer blur");
         dialog.setContentText("Sigma Value: ");
 
         Optional<String> result = dialog.showAndWait();
@@ -150,13 +156,15 @@ public class Controller {
             setImageData(currentImageData);
         }
 
+        stack.clear();
         stack.push(image.getImage());
+
     }
 
     public void edge() {
         TextInputDialog dialog = new TextInputDialog("5.0");
         dialog.setTitle("Edge Detection Filter");
-        dialog.setHeaderText("Enter a decimal value (values closer to 0.0 result in more noise and detail)");
+        dialog.setHeaderText("Enter a decimal value. Absolute values closer to 0.0 result in more noise and detail");
         dialog.setContentText("Weight Value: ");
 
         Optional<String> result = dialog.showAndWait();
@@ -166,14 +174,16 @@ public class Controller {
             setImageData(currentImageData);
         }
 
+        stack.clear();
         stack.push(image.getImage());
+        System.out.println(stack.getStateList());
+
     }
 
     private void getImageData() {
         Image srcImg = image.getImage();
         bImg = SwingFXUtils.fromFXImage(srcImg, null);
         currentImageData = bImg.getRGB(0, 0, bImg.getWidth(), bImg.getHeight(), null, 0, bImg.getWidth());
-        stack.push(srcImg);
     }
 
     private void setImageData(int[] imageData) {
