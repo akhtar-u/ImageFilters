@@ -180,6 +180,15 @@ public class Controller {
 
     }
 
+    public void dither() {
+
+    }
+
+    public void median() {
+        
+    }
+
+
     private void getImageData() {
         Image srcImg = image.getImage();
         bImg = SwingFXUtils.fromFXImage(srcImg, null);
