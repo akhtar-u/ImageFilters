@@ -6,4 +6,5 @@ package filters;
  * @author Usman Akhtar
  */
 public class Median {
+    
 }

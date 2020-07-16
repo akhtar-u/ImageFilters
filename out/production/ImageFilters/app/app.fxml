@@ -29,8 +29,8 @@
                 <MenuItem mnemonicParsing="false" onAction="#blur" text="Gaussian Blur" />
                   <MenuItem mnemonicParsing="false" onAction="#sharpen" text="Sharpen" />
                   <MenuItem mnemonicParsing="false" onAction="#edge" text="Edge Detection" />
-                  <MenuItem mnemonicParsing="false" text="Dithering" />
-                  <MenuItem mnemonicParsing="false" text="Median (denoise)" />
+                  <MenuItem mnemonicParsing="false" onAction="#dither" text="Dithering" />
+                  <MenuItem mnemonicParsing="false" onAction="#median" text="Median (denoise)" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
