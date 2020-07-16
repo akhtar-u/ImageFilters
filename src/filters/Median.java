@@ -6,5 +6,7 @@ package filters;
  * @author Usman Akhtar
  */
 public class Median {
-    
+
+    public void medianImage(int[] currentImageData, int imgWidth) {
+    }
 }

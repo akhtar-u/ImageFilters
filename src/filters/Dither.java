@@ -9,13 +9,6 @@ package filters;
 public class Dither {
 
 
-
-
-
-
-
-
-
-
-
+    public void ditherImage(int[] currentImageData, int imgWidth) {
+    }
 }

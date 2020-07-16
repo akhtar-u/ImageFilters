@@ -1,9 +1,8 @@
 package app;
 
+import com.sun.media.jfxmedia.Media;
 import data.Stack;
-import filters.Blur;
-import filters.Edge;
-import filters.Sharpen;
+import filters.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -40,6 +39,8 @@ public class Controller {
     String currentFilePath = userDir + "/Desktop";
 
     Sharpen sharpen = new Sharpen();
+    Dither dither = new Dither();
+    Median median = new Median();
     Stack stack = new Stack(10);
 
     public void aboutAlert() {
@@ -125,13 +126,11 @@ public class Controller {
     public void undo() {
         image.setImage(stack.popUndo());
         getImageData();
-        System.out.println(stack.getStateList());
     }
 
     public void redo() {
         image.setImage(stack.popRedo());
         getImageData();
-        System.out.println(stack.getStateList());
     }
 
     public void sharpen() {
@@ -140,7 +139,6 @@ public class Controller {
 
         stack.clear();
         stack.push(image.getImage());
-        System.out.println(stack.getStateList());
     }
 
     public void blur() {
@@ -158,7 +156,6 @@ public class Controller {
 
         stack.clear();
         stack.push(image.getImage());
-
     }
 
     public void edge() {
@@ -176,16 +173,22 @@ public class Controller {
 
         stack.clear();
         stack.push(image.getImage());
-        System.out.println(stack.getStateList());
-
     }
 
     public void dither() {
+        dither.ditherImage(currentImageData, imgWidth);
+        setImageData(currentImageData);
 
+        stack.clear();
+        stack.push(image.getImage());
     }
 
     public void median() {
-        
+        median.medianImage(currentImageData, imgWidth);
+        setImageData(currentImageData);
+
+        stack.clear();
+        stack.push(image.getImage());
     }
 
 
