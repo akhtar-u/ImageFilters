@@ -22,7 +22,7 @@ public class Dither {
         for (int i = 0; i < imageData.length; i++) {
             actualColor = new Color(imageData[i]);
             newColor = findNearestColor(imageData, i);
-            alpha = (imageData[i] >> 24) & 0xff;
+            alpha = FilterUtility.getAlpha(imageData[i]);
 
             errR = actualColor.getRed() - newColor.getRed();
             errG = actualColor.getGreen() - newColor.getGreen();

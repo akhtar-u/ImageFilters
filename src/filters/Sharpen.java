@@ -31,7 +31,7 @@ public class Sharpen {
 
         for (int i = 0; i < imageData.length; i++) {
 
-            alpha = (imageData[i] >> 24) & 0xff;
+            alpha = FilterUtility.getAlpha(imageData[i]);
 
             red = FilterUtility.getPixel(imageData, i - imgWidth - 1, 0) * sharpKernel[0];
             red += FilterUtility.getPixel(imageData, i - imgWidth, 0) * sharpKernel[1];

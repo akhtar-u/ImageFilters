@@ -26,4 +26,11 @@ public final class FilterUtility {
 
         return newPixel;
     }
+
+    public static int getAlpha(int data) {
+
+        return (data >> 24) & 0xff;
+    }
+
+
 }

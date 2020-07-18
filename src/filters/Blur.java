@@ -38,7 +38,7 @@ public class Blur {
         for (int i = 0; i < imgWidth; i++) {
             for (int j = i; j < imageData.length; j += imgWidth) {
 
-                alpha = (imageData[i] >> 24) & 0xff;
+                alpha = FilterUtility.getAlpha(imageData[i]);
 
                 red = (FilterUtility.getPixel(imageData, j, 0)) * blurKernel[kLength];
                 green = (FilterUtility.getPixel(imageData, j, 1)) * blurKernel[kLength];
@@ -62,7 +62,7 @@ public class Blur {
         for (int i = 0; i < imageData.length; i += imgWidth) {
             for (int j = i; j < i + imgWidth; j++) {
 
-                alpha = (imageData[i] >> 24) & 0xff;
+                alpha = FilterUtility.getAlpha(imageData[i]);
 
                 red = (FilterUtility.getPixel(convolveX, j, 0)) * blurKernel[kLength];
                 green = (FilterUtility.getPixel(convolveX, j, 1)) * blurKernel[kLength];
