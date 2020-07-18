@@ -7,8 +7,8 @@ package filters;
  */
 public final class FilterUtility {
 
-    public static double getPixel(int[] data, int index, int color) {
-        double newPixel;
+    public static int getPixel(int[] data, int index, int color) {
+        int newPixel;
 
         if (index < 0) {
             index = 0;

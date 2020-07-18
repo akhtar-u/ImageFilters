@@ -25,38 +25,31 @@ public class Median {
 
             alpha = FilterUtility.getAlpha(imageData[i]);
 
-            red = FilterUtility.getPixel(imageData, i - imgWidth - 1, 0);
-            red += FilterUtility.getPixel(imageData, i - imgWidth, 0);
-            red += FilterUtility.getPixel(imageData, i - imgWidth + 1, 0);
-            red += FilterUtility.getPixel(imageData, i - 1, 0);
-            red += FilterUtility.getPixel(imageData, i, 0);
-            red += FilterUtility.getPixel(imageData, i + 1, 0);
-            red += FilterUtility.getPixel(imageData, i + imgWidth - 1, 0);
-            red += FilterUtility.getPixel(imageData, i + imgWidth, 0);
-            red += FilterUtility.getPixel(imageData, i + imgWidth + 1, 0);
+            for (int j = i - 1; j < i + 2; j++) {
+                rList.add(FilterUtility.getPixel(imageData, j, 0));
 
-            green = FilterUtility.getPixel(imageData, i - imgWidth - 1, 1);
-            green += FilterUtility.getPixel(imageData, i - imgWidth, 1);
-            green += FilterUtility.getPixel(imageData, i - imgWidth + 1, 1);
-            green += FilterUtility.getPixel(imageData, i - 1, 1);
-            green += FilterUtility.getPixel(imageData, i, 1);
-            green += FilterUtility.getPixel(imageData, i + 1, 1);
-            green += FilterUtility.getPixel(imageData, i + imgWidth - 1, 1);
-            green += FilterUtility.getPixel(imageData, i + imgWidth, 1);
-            green += FilterUtility.getPixel(imageData, i + imgWidth + 1, 1);
+            }
 
-            blue = FilterUtility.getPixel(imageData, i - imgWidth - 1, 2);
-            blue += FilterUtility.getPixel(imageData, i - imgWidth, 2);
-            blue += FilterUtility.getPixel(imageData, i - imgWidth + 1, 2);
-            blue += FilterUtility.getPixel(imageData, i - 1, 2);
-            blue += FilterUtility.getPixel(imageData, i, 2);
-            blue += FilterUtility.getPixel(imageData, i + 1, 2);
-            blue += FilterUtility.getPixel(imageData, i + imgWidth - 1, 2);
-            blue += FilterUtility.getPixel(imageData, i + imgWidth, 2);
-            blue += FilterUtility.getPixel(imageData, i + imgWidth + 1, 2);
+            for (int k = i - imgWidth - 1; k < i - imgWidth + 2; k++) {
 
-            medianImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
+            }
+
+            for (int l = i + imgWidth - 1; l < i + imgWidth + 2; l++) {
+
+            }
+
+
+            //medianImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
         }
+
     }
+
+    private int getMedian(List<Integer> colorList){
+        int median = 0;
+
+        return median;
+    }
+
+
 }
 
