@@ -1,6 +1,7 @@
 package filters;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,43 +14,24 @@ public class Median {
 
     public void medianImage(int[] imageData, int imgWidth) {
 
-        double red, green, blue;
         int alpha;
         int[] medianImage = new int[imageData.length];
-        List<Integer> rList = new ArrayList<Integer>();
-        List<Integer> gList = new ArrayList<Integer>();
-        List<Integer> bList = new ArrayList<Integer>();
-
+        int[] red = new int[9];
+        int[] green = new int[9];
+        int[] blue = new int[9];
 
         for (int i = 0; i < imageData.length; i++) {
 
             alpha = FilterUtility.getAlpha(imageData[i]);
 
-            for (int j = i - 1; j < i + 2; j++) {
-                rList.add(FilterUtility.getPixel(imageData, j, 0));
-
-            }
-
-            for (int k = i - imgWidth - 1; k < i - imgWidth + 2; k++) {
-
-            }
-
-            for (int l = i + imgWidth - 1; l < i + imgWidth + 2; l++) {
-
-            }
 
 
-            //medianImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
+
+            medianImage[i] = alpha << 24 | red[4] << 16 | green[4] << 8 | blue[4];
         }
 
+        System.arraycopy(medianImage, 0, imageData, 0, imageData.length);
     }
-
-    private int getMedian(List<Integer> colorList){
-        int median = 0;
-
-        return median;
-    }
-
 
 }
 

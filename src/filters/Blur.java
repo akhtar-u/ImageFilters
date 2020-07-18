@@ -58,7 +58,6 @@ public class Blur {
             }
         }
 
-        //repeat for the other dimension
         for (int i = 0; i < imageData.length; i += imgWidth) {
             for (int j = i; j < i + imgWidth; j++) {
 
@@ -81,7 +80,7 @@ public class Blur {
                 convolveY[j] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
         }
-        //store the result back to the original array
+
         System.arraycopy(convolveY, 0, imageData, 0, imageData.length);
 
     }
