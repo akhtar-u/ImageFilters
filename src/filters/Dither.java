@@ -30,7 +30,7 @@ public class Dither {
 
             imageData[i] = newColor.getRGB();
 
-            /*if (i + 1 < imgWidth){
+            if (i + 1 < imgWidth){
                 red = roundRGB(FilterUtility.getPixel(imageData, i + 1, 0) + (7.0 / 16.0 * errR));
                 green = roundRGB(FilterUtility.getPixel(imageData, i + 1, 1) + (7.0 / 16.0 * errG));
                 blue = roundRGB(FilterUtility.getPixel(imageData, i + 1, 2) + (7.0 / 16.0 * errB));
@@ -61,7 +61,7 @@ public class Dither {
 
                 imageData[i + 1 + imgWidth] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
 
-            }  */
+            }
 
         }
     }
