@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+   <bottom>
+      <DialogPane fx:id="dialogPane" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openImage" text="Open" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveImage" text="Save" />
+              <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
+                  <MenuItem mnemonicParsing="false" onAction="#redo" text="Redo" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Filters">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#blur" text="Gaussian Blur" />
+                  <MenuItem mnemonicParsing="false" onAction="#sharpen" text="Sharpen" />
+                  <MenuItem mnemonicParsing="false" onAction="#edge" text="Edge Detection" />
+                  <MenuItem mnemonicParsing="false" onAction="#dither" text="Dithering" />
+                  <MenuItem mnemonicParsing="false" onAction="#median" text="Median (denoise)" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#aboutAlert" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <ImageView fx:id="image" fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
