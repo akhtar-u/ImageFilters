@@ -13,16 +13,32 @@ import java.util.List;
  */
 public class Stack {
 
+    /**
+     * Stack size (default 10), current count of stack position
+     * and the list containing the app states.
+     */
     public int stackSize;
     public int stackCount;
     private final List<Image> stateList;
 
+    /**
+     * Initialize a {@code Stack} object with the provided {@code stackSize}
+     * and the counter at -1.
+     *
+     * @param stackSize the size of the {@code Stack} to be initialized.
+     */
     public Stack(int stackSize) {
         this.stackSize = stackSize;
         stackCount = -1;
         stateList = new ArrayList<>(stackSize);
     }
 
+    /**
+     * Push currently displayed image at the top of the {@code Stack}.
+     * Remove images from the bottom of stack once counter exceeds {@code stackSize}.
+     *
+     * @param image the image that is being pushed to the top of the {@code Stack}.
+     */
     public void push(Image image) {
         if (stackCount == stackSize - 1) {
             stateList.remove(0);
@@ -32,6 +48,9 @@ public class Stack {
         stackCount++;
     }
 
+    /**
+     * @return the image from the {@code Stack} when undo is pressed.
+     */
     public Image popUndo() {
         if (!(stackCount <= 0)) {
             stackCount--;
@@ -39,6 +58,10 @@ public class Stack {
         return stateList.get(stackCount);
     }
 
+    /**
+     *
+     * @return the image from the {@code Stack} when redo is pressed.
+     */
     public Image popRedo() {
         if (stackCount < stateList.size() - 1) {
             stackCount++;
@@ -46,6 +69,10 @@ public class Stack {
         return stateList.get(stackCount);
     }
 
+    /**
+     * Clear the {@code Stack} from the current {@code stackCount} to the top of the
+     * {@code Stack}.
+     */
     public void clear() {
         if (stackCount < stateList.size()) {
             stateList.subList(stackCount + 1, stateList.size()).clear();
