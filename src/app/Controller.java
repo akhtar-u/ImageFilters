@@ -1,6 +1,5 @@
 package app;
 
-import com.sun.media.jfxmedia.Media;
 import data.Stack;
 import filters.*;
 import javafx.application.Platform;
