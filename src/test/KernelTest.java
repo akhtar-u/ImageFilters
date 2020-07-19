@@ -4,9 +4,9 @@ package test;
 import filters.Kernel;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class KernelTest {
@@ -53,8 +53,8 @@ public class KernelTest {
     void testToStringBlur() {
         Kernel myK = new Kernel("blur");
         String output = "Kernel Type: " + myK.getKernelType() + "\n" +
-                                    "Sigma: " + myK.getBlurSigma() + "\n" +
-                                    "Kernel Data: " + Arrays.toString(myK.getKernelArray());
+                "Sigma: " + myK.getBlurSigma() + "\n" +
+                "Kernel Data: " + Arrays.toString(myK.getKernelArray());
         String error = ("toString output is different");
 
         assertEquals(output, myK.toString(), error);

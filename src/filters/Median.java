@@ -1,9 +1,6 @@
 package filters;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * A filter which removes noise from an image
@@ -15,11 +12,13 @@ public class Median {
 
     public void medianImage(int[] imageData, int imgWidth) {
 
+        final int BOX_SIZE = 9;
+
         int alpha;
         int[] medianImage = new int[imageData.length];
-        int[] red = new int[9];
-        int[] green = new int[9];
-        int[] blue = new int[9];
+        int[] red = new int[BOX_SIZE];
+        int[] green = new int[BOX_SIZE];
+        int[] blue = new int[BOX_SIZE];
 
         for (int i = 0; i < imageData.length; i++) {
 

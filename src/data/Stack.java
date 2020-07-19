@@ -46,8 +46,8 @@ public class Stack {
         return stateList.get(stackCount);
     }
 
-    public void clear(){
-        if (stackCount < stateList.size()){
+    public void clear() {
+        if (stackCount < stateList.size()) {
             stateList.subList(stackCount + 1, stateList.size()).clear();
         }
     }

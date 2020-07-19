@@ -33,6 +33,7 @@ public class Controller {
     int[] currentImageData;
     int imgWidth, imgHeight;
     BufferedImage bImg;
+    final int DEFAULT_STACK_SIZE = 10;
 
     String userDir = System.getProperty("user.home");
     String currentFilePath = userDir + "/Desktop";
@@ -40,8 +41,9 @@ public class Controller {
     Sharpen sharpen = new Sharpen();
     Dither dither = new Dither();
     Median median = new Median();
-    Stack stack = new Stack(10);
+    Stack stack = new Stack(DEFAULT_STACK_SIZE);
 
+    // about methods
     public void aboutAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
@@ -64,6 +66,7 @@ public class Controller {
         }
     }
 
+    // File methods
     public void exitApp() {
         Platform.exit();
     }
@@ -122,6 +125,7 @@ public class Controller {
         }
     }
 
+    // Edit methods
     public void undo() {
         image.setImage(stack.popUndo());
         getImageData();
@@ -132,6 +136,7 @@ public class Controller {
         getImageData();
     }
 
+    // Filters methods
     public void sharpen() {
         sharpen.sharpenImage(currentImageData, imgWidth);
         setImageData(currentImageData);
@@ -151,10 +156,13 @@ public class Controller {
             Blur blur = new Blur(Double.parseDouble(result.get()));
             blur.blurImage(currentImageData, imgWidth);
             setImageData(currentImageData);
+        } else {
+            stack.clear();
         }
 
         stack.clear();
         stack.push(image.getImage());
+        System.out.println(stack.getStateList());
     }
 
     public void edge() {
@@ -168,6 +176,8 @@ public class Controller {
             Edge edge = new Edge(Double.parseDouble(result.get()));
             edge.detectEdge(currentImageData, imgWidth);
             setImageData(currentImageData);
+        } else {
+            stack.clear();
         }
 
         stack.clear();
@@ -191,6 +201,7 @@ public class Controller {
     }
 
 
+    // private methods
     private void getImageData() {
         Image srcImg = image.getImage();
         bImg = SwingFXUtils.fromFXImage(srcImg, null);

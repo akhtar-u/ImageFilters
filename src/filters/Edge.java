@@ -76,7 +76,7 @@ public class Edge {
             green = FilterUtility.getPixel(imageData, i, 1) - green;
             blue = FilterUtility.getPixel(imageData, i, 2) - blue;
 
-            avg = (.2126 * red + 0.7152* green + 0.0722* blue) / weight;
+            avg = (.2126 * red + 0.7152 * green + 0.0722 * blue) / weight;
 
             detectEdge[i] = alpha << 24 | (int) avg << 16 | (int) avg << 8 | (int) avg;
         }

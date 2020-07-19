@@ -54,7 +54,7 @@ public class Blur {
                     blue += (FilterUtility.getPixel(imageData, j - k * imgWidth, 2)) * blurKernel[kLength - k];
                     blue += (FilterUtility.getPixel(imageData, j + k * imgWidth, 2)) * blurKernel[kLength + k];
                 }
-                convolveX[j] = alpha << 24| (int) red << 16 | (int) green << 8 | (int) blue;
+                convolveX[j] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
         }
 
