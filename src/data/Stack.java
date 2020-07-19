@@ -20,7 +20,7 @@ public class Stack {
     public Stack(int stackSize) {
         this.stackSize = stackSize;
         stackCount = -1;
-        stateList = new ArrayList<Image>(10);
+        stateList = new ArrayList<>(stackSize);
     }
 
     public void push(Image image) {
@@ -50,9 +50,5 @@ public class Stack {
         if (stackCount < stateList.size()) {
             stateList.subList(stackCount + 1, stateList.size()).clear();
         }
-    }
-
-    public List<Image> getStateList() {
-        return stateList;
     }
 }
