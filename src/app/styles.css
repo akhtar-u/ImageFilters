@@ -1,16 +1,15 @@
-/* Source for css: https://stackoverflow.com/users/5768269/wesos-de-queso */
 .root {
-    -fx-accent: #484c4c;
+    -fx-accent: #171717;
     -fx-focus-color: -fx-accent;
-    -fx-base: #000000;
-    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-base: #3b3b3b;
+    -fx-control-inner-background: derive(-fx-base, 100%);
     -fx-control-inner-background-alt: -fx-control-inner-background;
     -fx-font-size: 14;
     -fx-font-family: "Roboto Light";
-    -fx-default-button: #000000;
+    -fx-default-button: #474747;
 }
 
-.label{
+.label {
     -fx-text-fill: lightgray;
 }
 
@@ -18,14 +17,18 @@
     -fx-prompt-text-fill: #808080;
 }
 
-.button{
+.button {
     -fx-focus-traversable: false;
 }
 
-.button:hover{
+.button:hover {
     -fx-text-fill: white;
 }
 
+.menu-item {
+    -fx-background-color: -fx-base;
+}
+
 .menu-item:focused {
-    -fx-background-color: #484c4c;
+    -fx-background-color: #171717;
 }
