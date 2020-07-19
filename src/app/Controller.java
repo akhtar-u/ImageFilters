@@ -224,7 +224,7 @@ public class Controller {
         stack.push(image.getImage());
     }
 
-    // private methods
+    // get and set methods
     private void getImageData() {
         Image srcImg = image.getImage();
         bImg = SwingFXUtils.fromFXImage(srcImg, null);
