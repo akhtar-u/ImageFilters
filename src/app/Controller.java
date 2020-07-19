@@ -5,7 +5,9 @@ import filters.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -33,13 +35,13 @@ public class Controller {
     int[] currentImageData;
     int imgWidth, imgHeight;
     BufferedImage bImg;
+
     final int DEFAULT_STACK_SIZE = 10;
 
     String userDir = System.getProperty("user.home");
     String currentFilePath = userDir + "/Desktop";
 
     Sharpen sharpen = new Sharpen();
-    Dither dither = new Dither();
     Median median = new Median();
     Stack stack = new Stack(DEFAULT_STACK_SIZE);
 
@@ -49,6 +51,7 @@ public class Controller {
         alert.setTitle("About");
         alert.setHeaderText("Image Filters Application");
         alert.setContentText("Usman Akhtar © 2020");
+        alert.initOwner(bp.getScene().getWindow());
 
         ButtonType VISIT = new ButtonType("Visit GitHub");
         alert.getButtonTypes().addAll(ButtonType.CLOSE, VISIT);
@@ -150,19 +153,16 @@ public class Controller {
         dialog.setTitle("Gaussian Blur Filter");
         dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. Lower Sigma values = softer blur");
         dialog.setContentText("Sigma Value: ");
+        dialog.initOwner(bp.getScene().getWindow());
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             Blur blur = new Blur(Double.parseDouble(result.get()));
             blur.blurImage(currentImageData, imgWidth);
             setImageData(currentImageData);
-        } else {
             stack.clear();
+            stack.push(image.getImage());
         }
-
-        stack.clear();
-        stack.push(image.getImage());
-        System.out.println(stack.getStateList());
     }
 
     public void edge() {
@@ -170,26 +170,50 @@ public class Controller {
         dialog.setTitle("Edge Detection Filter");
         dialog.setHeaderText("Enter a decimal value. Absolute values closer to 0.0 result in more noise and detail");
         dialog.setContentText("Weight Value: ");
+        dialog.initOwner(bp.getScene().getWindow());
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             Edge edge = new Edge(Double.parseDouble(result.get()));
             edge.detectEdge(currentImageData, imgWidth);
             setImageData(currentImageData);
-        } else {
-            stack.clear();
-        }
 
-        stack.clear();
-        stack.push(image.getImage());
+            stack.clear();
+            stack.push(image.getImage());
+        }
     }
 
     public void dither() {
-        dither.ditherImage(currentImageData, imgWidth);
-        setImageData(currentImageData);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Dither");
+        alert.setHeaderText("Choose dither color palette.");
+        alert.setGraphic(null);
+        alert.initOwner(bp.getScene().getWindow());
 
-        stack.clear();
-        stack.push(image.getImage());
+
+        ButtonType RGBDITHER = new ButtonType("Eight Color RGB");
+        ButtonType BWDITHER = new ButtonType("Black and White");
+        alert.getButtonTypes().addAll(ButtonType.CLOSE, RGBDITHER, BWDITHER);
+        alert.getButtonTypes().removeAll(ButtonType.OK);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.CLOSE) {
+            alert.close();
+        } else if (result.isPresent() && result.get() == RGBDITHER) {
+            Dither dither = new Dither("rgb");
+            dither.ditherImage(currentImageData, imgWidth);
+            setImageData(currentImageData);
+
+            stack.clear();
+            stack.push(image.getImage());
+        } else if (result.isPresent() && result.get() == BWDITHER) {
+            Dither dither = new Dither("bw");
+            dither.ditherImage(currentImageData, imgWidth);
+            setImageData(currentImageData);
+
+            stack.clear();
+            stack.push(image.getImage());
+        }
     }
 
     public void median() {
@@ -199,7 +223,6 @@ public class Controller {
         stack.clear();
         stack.push(image.getImage());
     }
-
 
     // private methods
     private void getImageData() {
@@ -213,6 +236,4 @@ public class Controller {
         Image filteredImage = SwingFXUtils.toFXImage(bImg, null);
         image.setImage(filteredImage);
     }
-
-
 }

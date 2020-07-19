@@ -11,8 +11,21 @@ import java.awt.*;
 public class Dither {
 
 
-    private final Color[] colorPalette = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE,
+    private final Color[] RGB_REDUCED_PALETTE = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE,
             Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.white};
+    private final Color[] BLACK_WHITE_PALETTE = {Color.BLACK, Color.WHITE};
+
+    private final Color[] chosenPalette;
+
+    public Dither(String chosenPalette) {
+        if (chosenPalette.equals("rgb")) {
+            this.chosenPalette = RGB_REDUCED_PALETTE;
+        }
+        else {
+            this.chosenPalette = BLACK_WHITE_PALETTE;
+        }
+    }
+
 
     public void ditherImage(int[] imageData, int imgWidth) {
         Color actualColor, newColor;
@@ -68,6 +81,7 @@ public class Dither {
         int rActual, gActual, bActual, rDiff, gDiff, bDiff, distance;
         int minDistance = 255 * 255 + 255 * 255 + 255 * 255 + 1;
         Color nearestColor = null;
+        Color[] colorPalette = chosenPalette;
 
         rActual = (imageData[index] & 0x00FF0000) >> 16;
         gActual = (imageData[index] & 0x0000FF00) >> 8;
