@@ -26,8 +26,14 @@ public class Stack {
      * and the counter at -1.
      *
      * @param stackSize the size of the {@code Stack} to be initialized.
+     *
+     * @throws IllegalArgumentException if {@code stackSize} is greater than 20
+     * or less than 2.
      */
     public Stack(int stackSize) {
+        if (stackSize < 2 || stackSize > 20){
+            throw new IllegalArgumentException();
+        }
         this.stackSize = stackSize;
         stackCount = -1;
         stateList = new ArrayList<>(stackSize);
@@ -59,7 +65,6 @@ public class Stack {
     }
 
     /**
-     *
      * @return the image from the {@code Stack} when redo is pressed.
      */
     public Image popRedo() {
