@@ -8,8 +8,7 @@ package filters;
 public final class FilterUtility {
 
     /**
-     *
-     * @param data the array containing RGB data for the image.
+     * @param data  the array containing RGB data for the image.
      * @param index the index of the pixel.
      * @param color the color to be returned.
      * @return the RGB value (0 - 255) at the given pixel {@code index} for
@@ -36,7 +35,6 @@ public final class FilterUtility {
     }
 
     /**
-     *
      * @param data the pixel's RGB data.
      * @return the isolated alpha channel from the pixel's RGB data.
      */

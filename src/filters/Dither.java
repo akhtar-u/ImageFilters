@@ -26,8 +26,7 @@ public class Dither {
             Color[] RGB_REDUCED_PALETTE = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE,
                     Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.white};
             this.chosenPalette = RGB_REDUCED_PALETTE;
-        }
-        else {
+        } else {
             Color[] BLACK_WHITE_PALETTE = {Color.BLACK, Color.WHITE};
             this.chosenPalette = BLACK_WHITE_PALETTE;
         }
@@ -38,7 +37,7 @@ public class Dither {
      * in an image through error diffusion.
      *
      * @param imageData the array containing RGB data for the image.
-     * @param imgWidth the width of the {@code Image}.
+     * @param imgWidth  the width of the {@code Image}.
      */
     public void ditherImage(int[] imageData, int imgWidth) {
         Color actualColor, newColor;
@@ -91,9 +90,8 @@ public class Dither {
     }
 
     /**
-     *
      * @param imageData the array containing RGB data for the image.
-     * @param index the index of the pixel.
+     * @param index     the index of the pixel.
      * @return the nearest color from the chosen color palette
      * to the pixel color in the image.
      */
@@ -123,7 +121,6 @@ public class Dither {
     }
 
     /**
-     *
      * @param value the RGB value to be clamped.
      * @return {@code value} after clamping between (0 - 255).
      */

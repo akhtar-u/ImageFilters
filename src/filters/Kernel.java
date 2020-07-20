@@ -138,7 +138,6 @@ public class Kernel {
     }
 
     /**
-     *
      * @param array the array which will have it's values summed.
      * @return the sum of all of the values of the given {@code array}.
      */
