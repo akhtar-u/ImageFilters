@@ -6,6 +6,30 @@ package filters;
  * @author Usman Akhtar
  */
 public final class FilterUtility {
+    /**
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     * @param i the current pixel index
+     * @param color the color channel to be returned
+     * @param kernel the kernel to be used during the convulation
+     * @return the value for the target pixel after convulation with the specified kernel
+     */
+    public static double convolve(int[] imageData, int imgWidth, int i, int color, double[] kernel) {
+        double pixelData;
+
+        pixelData = FilterUtility.getPixel(imageData, i - imgWidth - 1, color) * kernel[0];
+        pixelData += FilterUtility.getPixel(imageData, i - imgWidth, color) * kernel[1];
+        pixelData += FilterUtility.getPixel(imageData, i - imgWidth + 1, color) * kernel[2];
+        pixelData += FilterUtility.getPixel(imageData, i - 1, color) * kernel[3];
+        pixelData += FilterUtility.getPixel(imageData, i, color) * kernel[4];
+        pixelData += FilterUtility.getPixel(imageData, i + 1, color) * kernel[5];
+        pixelData += FilterUtility.getPixel(imageData, i + imgWidth - 1, color) * kernel[6];
+        pixelData += FilterUtility.getPixel(imageData, i + imgWidth, color) * kernel[7];
+        pixelData += FilterUtility.getPixel(imageData, i + imgWidth + 1, color) * kernel[8];
+
+        return pixelData;
+    }
 
     /**
      * @param data  the array containing RGB data for the image.
