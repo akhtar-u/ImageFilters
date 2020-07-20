@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Kernel {
 
     /**
-     * The type of kernel
+     * The type of kernel and array to store {@code Kernel} values.
      */
     public final String kernelType;
     public double sigma;
@@ -23,9 +23,9 @@ public class Kernel {
      * specified by the caller.
      *
      * @param kernelType the type of kernel to initialize
-     *                   ("blur" or "sharpen" or "edge")
+     *                   ("blur" or "sharpen" or "edge").
      * @throws IllegalArgumentException if {@code kernelType} is not one
-     *                                  of "blur" or "sharpen" or "edge"
+     *                                  of "blur" or "sharpen" or "edge".
      */
     public Kernel(String kernelType) {
 
@@ -46,12 +46,12 @@ public class Kernel {
 
     /**
      * Initializes a Gaussian blur {@code Kernel} with the specified
-     * {@code sigma} value
+     * {@code sigma} value.
      *
      * @param sigma the sigma value for the Gaussian function
-     *              larger values lead to a stronger blur
+     *              larger values lead to a stronger blur.
      * @throws IllegalArgumentException if {@code sigma} is less than 1.0
-     *                                  or greater than 5.0
+     *                                  or greater than 5.0.
      */
     public Kernel(double sigma) {
         if (sigma < 1.0 || sigma > 5.0) {
@@ -65,22 +65,22 @@ public class Kernel {
 
 
     /**
-     * @return the type of this {@code Kernel}
+     * @return the type of this {@code Kernel}.
      */
     public String getKernelType() {
         return kernelType;
     }
 
     /**
-     * @return the data of this {@code Kernel} as a 1-D array
+     * @return the data of this {@code Kernel} as a 1-D array.
      */
     public double[] getKernelArray() {
         return kernelArray;
     }
 
     /**
-     * @return the {@code sigma} value of the blue {@code Kernel}
-     * @throws IllegalAccessError if {@code kernelType} is not "blur"
+     * @return the {@code sigma} value of the blue {@code Kernel}.
+     * @throws IllegalAccessError if {@code kernelType} is not "blur".
      */
     public double getBlurSigma() {
         if (!this.getKernelType().equals("blur")) {
@@ -90,7 +90,7 @@ public class Kernel {
     }
 
     /**
-     * @return a String object representing the {@code Kernel}
+     * @return a String object representing the {@code Kernel}.
      */
     @Override
     public String toString() {
@@ -106,9 +106,9 @@ public class Kernel {
     }
 
     /**
-     * @param sigma the sigma value for the Gaussian function
+     * @param sigma the sigma value for the Gaussian function.
      * @return a 1-D array for a blur kernel
-     * by using the Gaussian function in 1-D
+     * by using the Gaussian function in 1-D.
      */
     private double[] blurKernel(double sigma) {
         final int KERNEL_LENGTH = 9;
@@ -137,6 +137,11 @@ public class Kernel {
         return gaussianK;
     }
 
+    /**
+     *
+     * @param array the array which will have it's values summed.
+     * @return the sum of all of the values of the given {@code array}.
+     */
     private double sumArray(double[] array) {
         double sum = 0;
 
@@ -147,14 +152,14 @@ public class Kernel {
     }
 
     /**
-     * @return a 1-D array for a sharpen kernel
+     * @return a 1-D array for a sharpen kernel.
      */
     private double[] sharpenKernel() {
         return new double[]{-1d, -1d, -1d, -1d, 9d, -1d, -1d, -1d, -1d};
     }
 
     /**
-     * @return a 1-D array for an edge detection kernel (details of image)
+     * @return a 1-D array for an edge detection kernel (details of image).
      */
     private double[] edgeKernel() {
         return new double[]{1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d, 1 / 9d};

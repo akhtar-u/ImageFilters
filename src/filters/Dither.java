@@ -3,30 +3,43 @@ package filters;
 import java.awt.*;
 
 /**
- * A filter which uses error diffusion to
- * reduce color space of an image
+ * A filter which uses Floyd–Steinberg dithering algorithm to
+ * reduce color space of an image.
  *
  * @author Usman Akhtar
  */
 public class Dither {
 
-
-    private final Color[] RGB_REDUCED_PALETTE = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE,
-            Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.white};
-    private final Color[] BLACK_WHITE_PALETTE = {Color.BLACK, Color.WHITE};
-
+    /**
+     * The color palette chosen by the user.
+     */
     private final Color[] chosenPalette;
 
+    /**
+     * Initializes a {@code Dither} object with the chosen
+     * color palette.
+     *
+     * @param chosenPalette the color palette chosen by the user
+     */
     public Dither(String chosenPalette) {
         if (chosenPalette.equals("rgb")) {
+            Color[] RGB_REDUCED_PALETTE = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE,
+                    Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.white};
             this.chosenPalette = RGB_REDUCED_PALETTE;
         }
         else {
+            Color[] BLACK_WHITE_PALETTE = {Color.BLACK, Color.WHITE};
             this.chosenPalette = BLACK_WHITE_PALETTE;
         }
     }
 
-
+    /**
+     * Uses the Floyd-Steinberg dither algorithm to reduce the number of colors
+     * in an image through error diffusion.
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     */
     public void ditherImage(int[] imageData, int imgWidth) {
         Color actualColor, newColor;
         int errR, errG, errB, alpha;
@@ -77,6 +90,13 @@ public class Dither {
         }
     }
 
+    /**
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param index the index of the current pixel.
+     * @return the nearest color from the chosen color palette to the current
+     * pixel color in the image.
+     */
     private Color findNearestColor(int[] imageData, int index) {
         int rActual, gActual, bActual, rDiff, gDiff, bDiff, distance;
         int minDistance = 255 * 255 + 255 * 255 + 255 * 255 + 1;
@@ -102,6 +122,11 @@ public class Dither {
         return nearestColor;
     }
 
+    /**
+     *
+     * @param value the RGB value to be clamped.
+     * @return {@code value} after clamping between (0 - 255).
+     */
     private double roundRGB(double value) {
         if (value < 0) value = 0;
         else if (value > 255) value = 255;
