@@ -56,33 +56,33 @@ public class Dither {
             imageData[i] = newColor.getRGB();
 
             if (i + 1 < imgWidth) {
-                red = roundRGB(FilterUtility.getPixel(imageData, i + 1, 0) + (7.0 / 16.0 * errR));
-                green = roundRGB(FilterUtility.getPixel(imageData, i + 1, 1) + (7.0 / 16.0 * errG));
-                blue = roundRGB(FilterUtility.getPixel(imageData, i + 1, 2) + (7.0 / 16.0 * errB));
+                red = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1, 0) + (7.0 / 16.0 * errR));
+                green = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1, 1) + (7.0 / 16.0 * errG));
+                blue = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1, 2) + (7.0 / 16.0 * errB));
 
                 imageData[i + 1] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
 
             if (i - 1 >= 0 && i + imgWidth < imageData.length) {
-                red = roundRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 0) + (3.0 / 16.0 * errR));
-                green = roundRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 1) + (3.0 / 16.0 * errG));
-                blue = roundRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 2) + (3.0 / 16.0 * errB));
+                red = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 0) + (3.0 / 16.0 * errR));
+                green = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 1) + (3.0 / 16.0 * errG));
+                blue = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i - 1 + imgWidth, 2) + (3.0 / 16.0 * errB));
 
                 imageData[i - 1 + imgWidth] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
 
             if (i + imgWidth < imageData.length) {
-                red = roundRGB(FilterUtility.getPixel(imageData, i + imgWidth, 0) + (5.0 / 16.0 * errR));
-                green = roundRGB(FilterUtility.getPixel(imageData, i + imgWidth, 1) + (5.0 / 16.0 * errG));
-                blue = roundRGB(FilterUtility.getPixel(imageData, i + imgWidth, 2) + (5.0 / 16.0 * errB));
+                red = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + imgWidth, 0) + (5.0 / 16.0 * errR));
+                green = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + imgWidth, 1) + (5.0 / 16.0 * errG));
+                blue = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + imgWidth, 2) + (5.0 / 16.0 * errB));
 
                 imageData[i + imgWidth] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
 
             if (i + 1 < imgWidth && i + imgWidth < imageData.length) {
-                red = roundRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 0) + (1.0 / 16.0 * errR));
-                green = roundRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 1) + (1.0 / 16.0 * errG));
-                blue = roundRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 2) + (1.0 / 16.0 * errB));
+                red = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 0) + (1.0 / 16.0 * errR));
+                green = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 1) + (1.0 / 16.0 * errG));
+                blue = FilterUtility.clampRGB(FilterUtility.getPixel(imageData, i + 1 + imgWidth, 2) + (1.0 / 16.0 * errB));
 
                 imageData[i + 1 + imgWidth] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
             }
@@ -118,16 +118,5 @@ public class Dither {
             }
         }
         return nearestColor;
-    }
-
-    /**
-     * @param value the RGB value to be clamped.
-     * @return {@code value} after clamping between (0 - 255).
-     */
-    private double roundRGB(double value) {
-        if (value < 0) value = 0;
-        else if (value > 255) value = 255;
-
-        return value;
     }
 }

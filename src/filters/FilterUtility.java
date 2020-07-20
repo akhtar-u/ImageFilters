@@ -43,5 +43,14 @@ public final class FilterUtility {
         return (data >> 24) & 0xff;
     }
 
+    /**
+     * @param value the RGB value to be clamped.
+     * @return {@code value} after clamping between (0 - 255).
+     */
+    public static double clampRGB(double value) {
+        if (value < 0) value = 0;
+        else if (value > 255) value = 255;
 
+        return value;
+    }
 }
