@@ -7,6 +7,45 @@ package filters;
  */
 public final class FilterUtility {
 
+
+    public static int[] convolve(int[] imageData, int imgWidth, double[] kernel){
+
+        int[] sharpenImage = new int[imageData.length];
+        double conValue;
+
+        for (int i = 0; i < imageData.length; i++) {
+
+            sharpenImage[i] = getAlpha(imageData[i]) << 24;
+
+            for(int j = 0; j < 3; j++)
+            {
+                conValue = FilterUtility.getPixel(imageData, i - imgWidth - 1, j) * kernel[0];
+                conValue += FilterUtility.getPixel(imageData, i - imgWidth, j) * kernel[1];
+                conValue += FilterUtility.getPixel(imageData, i - imgWidth + 1, j) * kernel[2];
+                conValue += FilterUtility.getPixel(imageData, i - 1, j) * kernel[3];
+                conValue += FilterUtility.getPixel(imageData, i, j) * kernel[4];
+                conValue += FilterUtility.getPixel(imageData, i + 1, j) * kernel[5];
+                conValue += FilterUtility.getPixel(imageData, i + imgWidth - 1, j) * kernel[6];
+                conValue += FilterUtility.getPixel(imageData, i + imgWidth, j) * kernel[7];
+                conValue += FilterUtility.getPixel(imageData, i + imgWidth + 1, j) * kernel[8];
+
+                conValue = clampRGB(conValue);
+
+                if (j == 0){
+                    sharpenImage[i] |= (int) conValue << 16;
+                }
+                else if (j == 1){
+                    sharpenImage[i] |= (int) conValue << 8;
+                }
+                else {
+                    sharpenImage[i] |= (int) conValue;
+                }
+            }
+        }
+
+        return sharpenImage;
+    }
+
     /**
      * @param data  the array containing RGB data for the image.
      * @param index the index of the pixel.
