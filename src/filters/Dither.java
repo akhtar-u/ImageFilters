@@ -93,9 +93,9 @@ public class Dither {
     /**
      *
      * @param imageData the array containing RGB data for the image.
-     * @param index the index of the current pixel.
-     * @return the nearest color from the chosen color palette to the current
-     * pixel color in the image.
+     * @param index the index of the pixel.
+     * @return the nearest color from the chosen color palette
+     * to the pixel color in the image.
      */
     private Color findNearestColor(int[] imageData, int index) {
         int rActual, gActual, bActual, rDiff, gDiff, bDiff, distance;

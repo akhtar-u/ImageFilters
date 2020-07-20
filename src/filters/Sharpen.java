@@ -1,7 +1,5 @@
 package filters;
 
-import java.util.Arrays;
-
 /**
  * A filter which sharpens an image.
  *
@@ -10,12 +8,12 @@ import java.util.Arrays;
 public class Sharpen {
 
     /**
-     * The {@code Kernel} object to be used during convulation
+     * The {@code Kernel} object to be used during convulation.
      */
     public Kernel kernel;
 
     /**
-     * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}
+     * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}.
      */
     public Sharpen() {
         kernel = new Kernel("sharpen");

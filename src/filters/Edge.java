@@ -3,7 +3,7 @@ package filters;
 
 /**
  * A filter which detects the "edges" of an image
- * and displays it in black and white
+ * and displays it in black and white.
  *
  * @author Usman Akhtar
  */
@@ -11,12 +11,16 @@ public class Edge {
 
     /**
      * The {@code Kernel} object to be used during convulation
+     * with the given weight value.
      */
     public Kernel kernel;
     private double weight;
 
     /**
      * Initializes an {@code Edge} object with an edge detection {@code Kernel}
+     * and provided {@code weight} value.
+     *
+     * @param weight the value of detail to be included in the filtered image.
      */
     public Edge(double weight) {
         kernel = new Kernel("edge");

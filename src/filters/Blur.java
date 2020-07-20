@@ -9,15 +9,15 @@ public class Blur {
 
     /**
      * The {@code Kernel} object to be used during convulation
-     * with the given {@code sigma} value;
+     * with the given {@code sigma} value.
      */
     public Kernel kernel;
     private double sigma;
 
     /**
-     * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}
+     * Initializes a {@code Sharpen} object with a sharpen {@code Kernel}.
      *
-     * @param sigma the sigma value to calculate the Gaussian blur {@code Kernel}
+     * @param sigma the sigma value to calculate the Gaussian blur {@code Kernel}.
      */
     public Blur(double sigma) {
         this.sigma = sigma;

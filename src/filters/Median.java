@@ -4,11 +4,17 @@ import java.util.Arrays;
 
 /**
  * A filter which removes noise from an image
- * and smooths it while preserving edges
+ * and smooths it while preserving edges.
  *
  * @author Usman Akhtar
  */
 public class Median {
+
+    /**
+     * Initializes a {@code Median} object.
+     */
+    public Median() {
+    }
 
     public void medianImage(int[] imageData, int imgWidth) {
 
