@@ -26,7 +26,7 @@ public class Blur {
 
     /**
      * Blurs the image using the sigma value provided. Uses separable {@code Kernel}
-     * properties of the Guassian {@code Kernel} to improve performance.
+     * properties of the Gaussian {@code Kernel} to improve performance.
      *
      * @param imageData the array containing RGB data for the image.
      * @param imgWidth the width of the {@code Image}.
