@@ -2,7 +2,7 @@
 
 #### How to run the program?
 - Download and extract latest release
-- Run ImageFilter.exe
+- Run ImageFilters.exe
 - **No Java installation required!**
 
 #### Features:
