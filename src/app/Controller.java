@@ -98,10 +98,14 @@ public class Controller {
 
         this.image.setImage(image);
         this.image.setPreserveRatio(true);
-        stack.push(image);
-        getImageData();
+
         imgHeight = (int) image.getHeight();
         imgWidth = (int) image.getWidth();
+
+        stack.clear();
+        getImageData();
+        stack.push(image);
+
     }
 
     public void saveImage() {

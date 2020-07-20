@@ -58,7 +58,7 @@ public class Stack {
      * @return the image from the {@code Stack} when undo is pressed.
      */
     public Image popUndo() {
-        if (!(stackCount <= 0)) {
+        if (stackCount >= 0) {
             stackCount--;
         }
         return stateList.get(stackCount);
