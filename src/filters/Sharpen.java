@@ -19,6 +19,13 @@ public class Sharpen {
         kernel = new Kernel("sharpen");
     }
 
+    /**
+     * Sharpens the image by highlighting the "details" of the image
+     * using a sharpen {@code Kernel}.
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     */
     public void sharpenImage(int[] imageData, int imgWidth) {
 
         double red, green, blue;

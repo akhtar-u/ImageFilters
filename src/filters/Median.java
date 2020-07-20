@@ -3,7 +3,7 @@ package filters;
 import java.util.Arrays;
 
 /**
- * A filter which removes noise from an image
+ * A filter which removes salt and pepper noise from an image
  * and smooths it while preserving edges.
  *
  * @author Usman Akhtar
@@ -16,6 +16,13 @@ public class Median {
     public Median() {
     }
 
+    /**
+     * Smooths the image by taking finding the median pixel value from
+     * a 3x3 box around each pixel value.
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     */
     public void medianImage(int[] imageData, int imgWidth) {
 
         final int BOX_SIZE = 9;
@@ -66,9 +73,7 @@ public class Median {
 
             medianImage[i] = alpha << 24 | red[4] << 16 | green[4] << 8 | blue[4];
         }
-
         System.arraycopy(medianImage, 0, imageData, 0, imageData.length);
     }
-
 }
 

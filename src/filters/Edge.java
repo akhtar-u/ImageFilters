@@ -27,6 +27,13 @@ public class Edge {
         this.weight = weight;
     }
 
+    /**
+     * Shows the details of the image in black and white
+     * by using an edge detection {@code Kernel}.
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     */
     public void detectEdge(int[] imageData, int imgWidth) {
 
         double red, green, blue, avg;
@@ -77,7 +84,6 @@ public class Edge {
 
             detectEdge[i] = alpha << 24 | (int) avg << 16 | (int) avg << 8 | (int) avg;
         }
-
         System.arraycopy(detectEdge, 0, imageData, 0, imageData.length);
     }
 }

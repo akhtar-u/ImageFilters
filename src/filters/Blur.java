@@ -24,6 +24,13 @@ public class Blur {
         kernel = new Kernel(this.sigma);
     }
 
+    /**
+     * Blurs the image using the sigma value provided. Uses separable {@code Kernel}
+     * properties of the Guassian {@code Kernel} to improve performance.
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     */
     public void blurImage(int[] imageData, int imgWidth) {
 
         double red, green, blue;
