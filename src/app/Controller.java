@@ -155,8 +155,8 @@ public class Controller {
     public void blur() {
         TextInputDialog dialog = new TextInputDialog("1.0");
         dialog.setTitle("Gaussian Blur Filter");
-        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. Lower Sigma values = softer blur");
-        dialog.setContentText("Sigma Value: ");
+        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. Lower sigma values = softer blur.");
+        dialog.setContentText("σ Value: ");
         dialog.initOwner(bp.getScene().getWindow());
 
         Optional<String> result = dialog.showAndWait();
@@ -172,7 +172,7 @@ public class Controller {
     public void edge() {
         TextInputDialog dialog = new TextInputDialog("5.0");
         dialog.setTitle("Edge Detection Filter");
-        dialog.setHeaderText("Enter a decimal value. Absolute values closer to 0.0 result in more noise and detail");
+        dialog.setHeaderText("Enter a decimal value. Absolute values closer to 0.0 result in more noise and detail.");
         dialog.setContentText("Weight Value: ");
         dialog.initOwner(bp.getScene().getWindow());
 
