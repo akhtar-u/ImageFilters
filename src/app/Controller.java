@@ -155,13 +155,21 @@ public class Controller {
     public void blur() {
         TextInputDialog dialog = new TextInputDialog("1.0");
         dialog.setTitle("Gaussian Blur Filter");
-        dialog.setHeaderText("Enter a decimal value between 0.0 to 5.0. Lower sigma values = softer blur.");
+        dialog.setHeaderText("Enter a decimal value between 1.0 to 5.0. Lower sigma values = softer blur.");
         dialog.setContentText("σ Value: ");
         dialog.initOwner(bp.getScene().getWindow());
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
-            Blur blur = new Blur(Double.parseDouble(result.get()));
+
+            double sigma = Double.parseDouble(result.get());
+            if (sigma > 5.0){
+                sigma = 5.0;
+            }
+            else if (sigma < 1.0){
+                sigma = 1.0;
+            }
+            Blur blur = new Blur(sigma);
             blur.blurImage(currentImageData, imgWidth);
             setImageData(currentImageData);
             stack.clear();
