@@ -18,62 +18,54 @@ public class Median {
 
     /**
      * Smooths the image by taking finding the median pixel value from
-     * a 3x3 box around each pixel value.
+     * a 3x3 window around each pixel value.
      *
      * @param imageData the array containing RGB data for the image.
-     * @param imgWidth the width of the {@code Image}.
+     * @param imgWidth  the width of the {@code Image}.
      */
     public void medianImage(int[] imageData, int imgWidth) {
 
-        final int BOX_SIZE = 9;
-
-        int alpha;
+        int alpha, red, green, blue;
         int[] medianImage = new int[imageData.length];
-        int[] red = new int[BOX_SIZE];
-        int[] green = new int[BOX_SIZE];
-        int[] blue = new int[BOX_SIZE];
+
 
         for (int i = 0; i < imageData.length; i++) {
 
             alpha = FilterUtility.getAlpha(imageData[i]);
 
-            red[0] = FilterUtility.getPixel(imageData, i - imgWidth - 1, 0);
-            red[1] = FilterUtility.getPixel(imageData, i - imgWidth, 0);
-            red[2] = FilterUtility.getPixel(imageData, i - imgWidth + 1, 0);
-            red[3] = FilterUtility.getPixel(imageData, i - 1, 0);
-            red[4] = FilterUtility.getPixel(imageData, i, 0);
-            red[5] = FilterUtility.getPixel(imageData, i + 1, 0);
-            red[6] = FilterUtility.getPixel(imageData, i + imgWidth - 1, 0);
-            red[7] = FilterUtility.getPixel(imageData, i + imgWidth, 0);
-            red[8] = FilterUtility.getPixel(imageData, i + imgWidth + 1, 0);
+            red = getMedian(imageData, imgWidth, i, 0);
+            green = getMedian(imageData, imgWidth, i, 1);
+            blue = getMedian(imageData, imgWidth, i, 2);
 
-            green[0] = FilterUtility.getPixel(imageData, i - imgWidth - 1, 1);
-            green[1] = FilterUtility.getPixel(imageData, i - imgWidth, 1);
-            green[2] = FilterUtility.getPixel(imageData, i - imgWidth + 1, 1);
-            green[3] = FilterUtility.getPixel(imageData, i - 1, 1);
-            green[4] = FilterUtility.getPixel(imageData, i, 1);
-            green[5] = FilterUtility.getPixel(imageData, i + 1, 1);
-            green[6] = FilterUtility.getPixel(imageData, i + imgWidth - 1, 1);
-            green[7] = FilterUtility.getPixel(imageData, i + imgWidth, 1);
-            green[8] = FilterUtility.getPixel(imageData, i + imgWidth + 1, 1);
-
-            blue[0] = FilterUtility.getPixel(imageData, i - imgWidth - 1, 2);
-            blue[1] = FilterUtility.getPixel(imageData, i - imgWidth, 2);
-            blue[2] = FilterUtility.getPixel(imageData, i - imgWidth + 1, 2);
-            blue[3] = FilterUtility.getPixel(imageData, i - 1, 2);
-            blue[4] = FilterUtility.getPixel(imageData, i, 2);
-            blue[5] = FilterUtility.getPixel(imageData, i + 1, 2);
-            blue[6] = FilterUtility.getPixel(imageData, i + imgWidth - 1, 2);
-            blue[7] = FilterUtility.getPixel(imageData, i + imgWidth, 2);
-            blue[8] = FilterUtility.getPixel(imageData, i + imgWidth + 1, 2);
-
-            Arrays.sort(red);
-            Arrays.sort(green);
-            Arrays.sort(blue);
-
-            medianImage[i] = alpha << 24 | red[4] << 16 | green[4] << 8 | blue[4];
+            medianImage[i] = alpha << 24 | red << 16 | green << 8 | blue;
         }
         System.arraycopy(medianImage, 0, imageData, 0, imageData.length);
+    }
+
+    /**
+     *
+     * @param imageData the array containing RGB data for the image.
+     * @param imgWidth the width of the {@code Image}.
+     * @param i the current pixel index
+     * @param color the color channel to be returned
+     * @return the median color value from the 3x3 window
+     */
+    private int getMedian(int[] imageData, int imgWidth, int i, int color) {
+        int[] pixelArray = new int[9];
+
+        pixelArray[0] = FilterUtility.getPixel(imageData, i - imgWidth - 1, color);
+        pixelArray[1] = FilterUtility.getPixel(imageData, i - imgWidth, color);
+        pixelArray[2] = FilterUtility.getPixel(imageData, i - imgWidth + 1, color);
+        pixelArray[3] = FilterUtility.getPixel(imageData, i - 1, color);
+        pixelArray[4] = FilterUtility.getPixel(imageData, i, color);
+        pixelArray[5] = FilterUtility.getPixel(imageData, i + 1, color);
+        pixelArray[6] = FilterUtility.getPixel(imageData, i + imgWidth - 1, color);
+        pixelArray[7] = FilterUtility.getPixel(imageData, i + imgWidth, color);
+        pixelArray[8] = FilterUtility.getPixel(imageData, i + imgWidth + 1, color);
+
+        Arrays.sort(pixelArray);
+
+        return pixelArray[4];
     }
 }
 
