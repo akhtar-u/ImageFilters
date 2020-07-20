@@ -49,7 +49,7 @@ public final class FilterUtility {
      */
     public static double clampRGB(double value) {
         if (value < 0) value = 0;
-        else if (value > 255) value = 255;
+        if (value > 255) value = 255;
 
         return value;
     }

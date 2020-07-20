@@ -61,16 +61,12 @@ public class Sharpen {
             blue += FilterUtility.getPixel(imageData, i + imgWidth, 2) * sharpKernel[7];
             blue += FilterUtility.getPixel(imageData, i + imgWidth + 1, 2) * sharpKernel[8];
 
-            if (red < 0) red = 0;
-            if (green < 0) green = 0;
-            if (blue < 0) blue = 0;
-            if (red > 255) red = 255;
-            if (green > 255) green = 255;
-            if (blue > 255) blue = 255;
+            red = FilterUtility.clampRGB(red);
+            green = FilterUtility.clampRGB(green);
+            blue = FilterUtility.clampRGB(blue);
 
             sharpenImage[i] = alpha << 24 | (int) red << 16 | (int) green << 8 | (int) blue;
         }
-
         System.arraycopy(sharpenImage, 0, imageData, 0, imageData.length);
     }
 }
