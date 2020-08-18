@@ -6,13 +6,20 @@ package filters;
  * @author Usman Akhtar
  */
 public final class FilterUtility {
+
     /**
-     *
+     * Private constructor to prevent instances of {@code FilterUtility}
+     * from being created
+     */
+    private FilterUtility() {
+    }
+
+    /**
      * @param imageData the array containing RGB data for the image.
-     * @param imgWidth the width of the {@code Image}.
-     * @param i the current pixel index
-     * @param color the color channel to be returned
-     * @param kernel the kernel to be used during the convulation
+     * @param imgWidth  the width of the {@code Image}.
+     * @param i         the current pixel index
+     * @param color     the color channel to be returned
+     * @param kernel    the kernel to be used during the convulation
      * @return the value for the target pixel after convulation with the specified kernel
      */
     public static double convolve(int[] imageData, int imgWidth, int i, int color, double[] kernel) {
