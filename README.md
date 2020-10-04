@@ -1,6 +1,6 @@
 # Image Filters - An image processing desktop application built with JavaFX
 
-![Application](examples/app.png)
+![Application](examples/showcase.gif)
 
 #### How to run the program?
 
